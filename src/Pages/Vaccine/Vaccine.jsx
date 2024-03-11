@@ -206,7 +206,7 @@ function Vaccine() {
             report seciniz
           </option>
           {reports.map((report) => {
-            return <option value={report.id}>{report.name}</option>;
+            return <option value={report.id}>{report.title}</option>;
           })}
         </select>
 
@@ -214,7 +214,7 @@ function Vaccine() {
       </div>
 
       {/* ------------------------------------------------------ */}
-      <div className="vaccinedate-updatevaccine">
+      <div className="vaccine-updatevaccine">
         <h2>Asi Güncelleme</h2>
 
         <input
@@ -263,7 +263,7 @@ function Vaccine() {
             report seciniz
           </option>
           {reports.map((report) => {
-            return <option value={report.id}>{report.name}</option>;
+            return <option value={report.id}>{report.title}</option>;
           })}
         </select>
 

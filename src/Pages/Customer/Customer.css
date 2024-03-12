@@ -1,8 +1,127 @@
-.list {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-between;
+
+
+h1{
+  text-align: center;
   padding: 2rem;
-  gap: 1rem;
+  
+ 
 }
+
+.customer-newccustomer,
+.customer-updatecustomer ,
+.list {
+  
+  background-color: #F5F5F5; 
+  border-radius: 10px;
+  padding: 20px;
+  
+}
+
+h1, h2, h3{
+  color: #363062; 
+}
+h3{
+  padding-bottom: 10px;
+}
+
+/* .customer-newccustomer h1, he
+.customer-updatecustomer h2,
+.list h2 {
+  color: #363062; 
+} */
+
+.customer-newccustomer input,
+.customer-updatecustomer input {
+  
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #4d4c7d32;  
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  border-radius: 5px;
+  color: #363062;
+}
+
+::placeholder {
+  color: #4d4c7d73;;
+}
+
+.customer-newccustomer button,
+.customer-updatecustomer button {
+  padding: 10px 20px;
+  background-color: #F99417; 
+  color: #fff; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.customer-newccustomer button:hover,
+.customer-updatecustomer button:hover {
+  background-color: #F17C16; 
+}
+
+.list {
+  margin-top: 20px;
+  max-width: 100%;
+}
+
+.list div {
+  background-color: #fff; 
+  margin-bottom: 10px;
+  /* padding: 10px; */
+  border: 1px solid #4d4c7d32;  
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.list div h3 {
+  color: #363062; 
+  margin-bottom: 5px;
+  
+}
+
+.list div span {
+  cursor: pointer;
+}
+
+.list div span:hover {
+  color: #76ABAE; 
+}
+
+
+/* -------------------------------- */
+.table-container {
+  max-width: 100%;
+  margin: auto;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #dddddd75;
+  text-decoration: underline;
+  text-decoration-color: #36306237;
+  color: #363062;
+  
+}
+
+table th {
+  background-color: #36306237;
+  color: #363062e3
+}
+
+/* table tr:nth-child(even) {
+  background-color: #f9f9f9;
+} */
+
+/* table tr:hover {
+  background-color: #f2f2f2;
+} */
+

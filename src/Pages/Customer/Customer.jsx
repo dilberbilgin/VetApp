@@ -30,7 +30,7 @@ function Customer() {
     city: "",
   });
 
-    //New Customer
+  //New Customer
 
   const handleNewCustomer = (event) => {
     setNewCustomer({
@@ -54,7 +54,7 @@ function Customer() {
     });
   };
 
-  console.log(customers)
+  console.log(customers);
 
   //Delete Customer
 
@@ -73,8 +73,7 @@ function Customer() {
     });
   };
 
-
-  const  handleUpdateCustomerBtn = () => {
+  const handleUpdateCustomerBtn = () => {
     updateCustomerFunc(updateCustomer).then(() => {
       setReload(true);
     });
@@ -102,7 +101,9 @@ function Customer() {
   return (
     <>
       <div className="customer-newccustomer">
-        <h2>New Customer</h2>
+        <h1>Musteri Yonetimi</h1>
+        <h3>Musteri Ekle</h3>
+
         <input
           type="text"
           placeholder="Adi"
@@ -148,7 +149,7 @@ function Customer() {
       {/* ------------------------------------------------------ */}
 
       <div className="customer-updatecustomer">
-        <h2>Customer Guncelle</h2>
+        <h3>Musteri Guncelle</h3>
 
         <input
           type="text"
@@ -194,7 +195,48 @@ function Customer() {
       {/* ------------------------------------------------------ */}
 
       <div className="list">
+        <h3>Musteri Listesi</h3>
+
+        <div className="table-container">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Ad Soyadi</th>
+              <th>E-mail</th>
+              <th>Adres</th>
+              <th>Sehir</th>
+              <th>Telefon</th>
+              <th>Islemler</th>
+            </tr>
+          </thead>
+          <tbody>
+            {customers.map((customer) => (
+              <tr key={customer.id}>
+                <td>{customer.name}</td>
+                <td>{customer.mail}</td>
+                <td>{customer.address}</td>
+                <td>{customer.city}</td>
+                <td>{customer.phone}</td>
+                <td>
+                  <span onClick={() => handleDelete(customer.id)}>
+                    <DeleteIcon />
+                  </span>{" "}
+                  <span onClick={() => handleUpdateIcon(customer)}>
+                    <UpdateIcon />
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
+
+        
+      </div>
+
+      {/* <div className="list">
         <h2>Customer Listesi</h2>
+        
         {customers.map((customer) => (
           <div key={customer.id}>
             <h3>
@@ -210,7 +252,7 @@ function Customer() {
             {customer.address}
           </div>
         ))}
-      </div>
+      </div> */}
     </>
   );
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import UpdateIcon from "@mui/icons-material/Update";
+import Alert from "@mui/material/Alert";
 
 import {
   getDoctors,
@@ -14,6 +15,7 @@ import "./Doctor.css";
 function Doctor() {
   const [doctors, setDoctors] = useState([]);
   const [reload, setReload] = useState(true);
+  const [alert, setAlert] = useState(false);
 
   const [newDoctor, setNewDoctor] = useState({
     name: "",
@@ -42,17 +44,24 @@ function Doctor() {
   };
 
   const handleNewDoctorBtn = () => {
-    createDoctor(newDoctor).then(() => {
-      console.log(newDoctor);
-      setReload(true);
-    });
-    setNewDoctor({
-      name: "",
-      mail: "",
-      address: "",
-      city: "",
-      phone: "",
-    });
+    createDoctor(newDoctor)
+      .then(() => {
+        console.log(newDoctor);
+        setReload(true);
+        setNewDoctor({
+          name: "",
+          mail: "",
+          address: "",
+          city: "",
+          phone: "",
+        });
+      })
+      .catch((error) => {
+        setAlert(true);
+        setTimeout(() => {
+          setAlert(false);
+        }, 3000);
+      });
   };
 
   //Delete Doctor
@@ -109,6 +118,14 @@ function Doctor() {
     setReload(false);
   }, [reload]);
 
+  // ---------------------------------------------------------------
+
+  // const filteredDoctors = doctors.filter((doctor) => doctor.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
+  // const handleSearchTermChange = (event) => {
+  //   setSearchTerm(event.target.value);
+  // };
+
   return (
     <>
       <div className="doctor-newdoctor">
@@ -149,6 +166,11 @@ function Doctor() {
           onChange={handleNewDoctor}
         />
         <button onClick={handleNewDoctorBtn}>Create</button>
+        {alert && (
+          <Alert severity="error">
+            This doctor has already been registered in the system!
+          </Alert>
+        )}
       </div>
 
       {/* ------------------------------------------------------ */}
@@ -192,6 +214,15 @@ function Doctor() {
         />
         <button onClick={handleUpdateDoctorBtn}>Update</button>
       </div>
+{/* ---------------------------------------------------------------- */}
+      {/* <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search by name"
+          value={searchTerm}
+          onChange={handleSearchTermChange}
+        />
+      </div> */}
 
       {/* ------------------------------------------------------ */}
       <div className="list">
@@ -211,7 +242,6 @@ function Doctor() {
             {doctor.address}
           </div>
         ))}
-        
       </div>
       <Outlet />
     </>

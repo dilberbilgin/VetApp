@@ -52,7 +52,9 @@ function AvailableDate() {
     });
     setNewAvailableDate({
       availableDate: "",
-      doctor: "",
+      doctor: {
+        id:"",
+      },
     });
   };
 
@@ -130,7 +132,7 @@ function AvailableDate() {
         />
         
 
-        <select name="doctor" onChange={handleNewAvailableDate}>
+        <select value={newAvailableDate.doctor.id} name="doctor" onChange={handleNewAvailableDate}>
           <option value="" disabled={true} selected={true}>
             doktor seciniz
           </option>

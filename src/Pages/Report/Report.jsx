@@ -30,6 +30,18 @@ function Report() {
     appointment: "",
   });
 
+  useEffect(() => {
+    getReports().then((data) => {
+      setReports(data);
+      console.log(data);
+    });
+    getAppointments().then((data) => {
+      setAppointments(data);
+      
+    });
+    setReload(false);
+  }, [reload]);
+
   //New Report
 
   const handleNewReport = (event) => {
@@ -115,20 +127,12 @@ function Report() {
     });
   };
 
-  useEffect(() => {
-    getReports().then((data) => {
-      setReports(data);
-      console.log(data);
-    });
-    getAppointments().then((data) => {
-      setAppointments(data);
-      console.log(data);
-    });
-    setReload(false);
-  }, [reload]);
+ 
 
   return (
     <>
+
+    <h1>Rapor Yonetimi</h1>
       <div className="report-newreport">
         <h2>Rapor Ekleme</h2>
         <input
@@ -225,6 +229,12 @@ function Report() {
               </span>
             </h3>{" "}
             {report.animalName} - {report.diagnosis} 
+            {report.vaccineList?.map((vaccineLists) => (
+              <div key={vaccineLists.name}>
+                {vaccineLists.name}
+                </div>
+
+            ))}
           </div> 
         ))}
       </div>

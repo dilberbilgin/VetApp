@@ -217,7 +217,7 @@ function Report() {
       <div className="list">
         <h2>Rapor Listesi</h2>
         {reports.map((report) => (
-          <div key={report.id}>
+          <div className="reports" key={report.id}>
             <h3>
               {report.id} - {report.title} - {report.doctorName}
               <span id={report.id} onClick={() => handleDelete(report.id)}>
@@ -229,7 +229,7 @@ function Report() {
               </span>
             </h3>{" "}
             {report.animalName} - {report.diagnosis} 
-            {report.vaccineList?.map((vaccineLists) => (
+            Asi Listesi : {report.vaccineList?.map((vaccineLists) => (
               <div key={vaccineLists.name}>
                 {vaccineLists.name}
                 </div>

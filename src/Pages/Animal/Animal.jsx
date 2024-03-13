@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import UpdateIcon from "@mui/icons-material/Update";
+// import UpdateIcon from "@mui/icons-material/Update";
+import UpdateIcon from "@mui/icons-material/Edit";
 
 import {
   getAnimals,
@@ -11,11 +12,14 @@ import {
 import "./Animal.css";
 import { getCustomers } from "../../API/customer";
 
+//------------------------------Use State-----------------------------
+
 function Animal() {
   const [animals, setAnimals] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [search, setSearch] = useState("");
   const [customers, setCustomers] = useState([]);
   const [reload, setReload] = useState(true);
-
   const [newAnimal, setNewAnimal] = useState({
     name: "",
     species: "",
@@ -36,7 +40,20 @@ function Animal() {
     customer: "",
   });
 
-  //New Animal
+    //------------------------------Use Effect-----------------------------
+    useEffect(() => {
+      getAnimals().then((data) => {
+        setAnimals(data);
+        setSearchResults(data);
+      });
+      getCustomers().then((data) => {
+        setCustomers(data);
+        console.log(data);
+      });
+      setReload(false);
+    }, [reload]);
+
+  //------------------------------New Animal-----------------------------
 
   const handleNewAnimal = (event) => {
     if (event.target.name === "customer") {
@@ -51,7 +68,6 @@ function Animal() {
         ...newAnimal,
         [event.target.name]: event.target.value,
       });
-      
     }
     console.log(newAnimal);
   };
@@ -72,7 +88,7 @@ function Animal() {
     });
   };
 
-  //Delete Animal
+ //------------------------------Delete Animal-----------------------------
 
   const handleDelete = (id) => {
     deleteAnimal(id).then(() => {
@@ -80,7 +96,7 @@ function Animal() {
     });
   };
 
-  //Update Animal
+ //------------------------------Update Animal-----------------------------
 
   const handleUpdateAnimalInputs = (event) => {
     if (event.target.name === "customer"){
@@ -133,22 +149,29 @@ function Animal() {
     });
   };
 
-  useEffect(() => {
-    getAnimals().then((data) => {
-      setAnimals(data);
-      console.log(data);
-    });
-    getCustomers().then((data) => {
-      setCustomers(data);
-      console.log(data);
-    });
-    setReload(false);
-  }, [reload]);
+  //------------------------------Search Animal-----------------------------
+  const handleSearch = () => {
+    const filteredAnimal = searchResults.filter((animal) =>
+    animal.name.toLowerCase().includes(search.toLowerCase())
+    );
+    setAnimals(filteredAnimal);
+  };
+
+  const handleSearchAnimalByCustomerName = () => {
+    const filteredAnimal = searchResults.filter((animal) =>
+    animal.customer.name.toLowerCase().includes(search.toLowerCase())
+    );
+    setAnimals(filteredAnimal);
+  };
+
+  
 
   return (
     <>
+     {/*--------------------------New Animal Input Button------------------------ */}
       <div className="animal-newanimal">
-        <h2>Hayvan Ekleme</h2>
+        <h1>Hayvan Yonetimi</h1>
+        <h3>Hayvan Ekleme</h3>
         <input
           type="text"
           placeholder="Name"
@@ -204,9 +227,9 @@ function Animal() {
         <button onClick={handleNewAnimalBtn}>Create</button>
       </div>
 
-      {/* ------------------------------------------------------ */}
+     {/*--------------------------Update Animal Input Button------------------------ */}
       <div className="animal-updateanimal">
-        <h2>Hayvan Güncelleme</h2>
+        <h3>Hayvan Güncelleme</h3>
 
         <input
           type="text"
@@ -262,10 +285,87 @@ function Animal() {
         <button onClick={handleUpdateAnimalBtn}>Update</button>
       </div>
 
-      {/* ------------------------------------------------------ */}
+     {/*--------------------------Search Animal Input Button------------------------ */}
+
+     <div className="searchs">
+     <div className="search-bar">
+      <h3>Hayvan Ara</h3>
+        <input
+          type="text"
+          placeholder="isim giriniz... "
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        <button onClick={handleSearch}>Search</button>
+      </div>
+
+      <div className="search-bar">
+      <h3>Hayvan Sahibi Ara</h3>
+        <input
+          type="text"
+          placeholder="musteri ismi giriniz... "
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button onClick={handleSearchAnimalByCustomerName}>Search</button>
+      </div>
+
+
+     </div>
+
+      {/* ------------------------------List Animal ----------------------------- */}
       <div className="list">
-        <h2>Hayvan Listesi</h2>
-        {animals.map((animal) => (
+        <h3>Hayvan Listesi</h3>
+
+        <div className="table-container">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Adi</th>
+                <th>Tur</th>
+                <th>Irk</th>
+                <th>Cinsiyet</th>
+                <th>Renk</th>
+                <th>Dogum Tarihi</th>
+                <th>Sahibi</th>
+                <th>Islemler</th>
+              </tr>
+            </thead>
+            <tbody>
+              {animals.map((animal) => (
+                <tr key={animal.id}>
+                  <td>{animal.name}</td>
+                  <td>{animal.species}</td>
+                  <td>{animal.breed}</td>
+                  <td>{animal.gender}</td>
+                  <td>{animal.colour}</td>
+                  <td>{animal.dateOfBirth}</td>
+                  <td>{animal.customer.name}</td>
+                  
+                  <td>
+                    <span onClick={() => handleUpdateIcon(animal)}>
+                      <UpdateIcon />
+                    </span>
+                    <span onClick={() => handleDelete(animal.id)}>
+                      <DeleteIcon />
+                    </span>{" "}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        </div>
+    </>
+  );
+}
+
+export default Animal;
+
+
+        {/* {animals.map((animal) => (
           <div key={animal.id}>
             <h3>
               {animal.name} {animal.id}
@@ -279,10 +379,13 @@ function Animal() {
             </h3>{" "}
             {animal.breed}
           </div>
-        ))}
-      </div>
+        ))} */}
+
+
+
+      {/* </div>
     </>
   );
 }
 
-export default Animal;
+export default Animal; */}

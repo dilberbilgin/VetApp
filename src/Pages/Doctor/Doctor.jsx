@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
-import UpdateIcon from "@mui/icons-material/Update";
+// import UpdateIcon from "@mui/icons-material/Update";
+import UpdateIcon from "@mui/icons-material/Edit";
 import Alert from "@mui/material/Alert";
 
 import {
@@ -16,7 +17,6 @@ function Doctor() {
   const [doctors, setDoctors] = useState([]);
   const [reload, setReload] = useState(true);
   const [alert, setAlert] = useState(false);
-
   const [newDoctor, setNewDoctor] = useState({
     name: "",
     mail: "",
@@ -33,8 +33,16 @@ function Doctor() {
     phone: "",
   });
 
-  //New Doctor
+  //------------------------------Use Effect-----------------------------
+  useEffect(() => {
+    getDoctors().then((data) => {
+      setDoctors(data);
+      console.log(data);
+    });
+    setReload(false);
+  }, [reload]);
 
+  //------------------------------New Doctor-----------------------------
   const handleNewDoctor = (event) => {
     setNewDoctor({
       ...newDoctor,
@@ -59,21 +67,19 @@ function Doctor() {
       .catch((error) => {
         setAlert(true);
         setTimeout(() => {
-          setAlert(false);
+          setAlert(false); //alert
         }, 3000);
       });
   };
 
-  //Delete Doctor
-
+  //------------------------------Delete Doctor-----------------------------
   const handleDelete = (id) => {
     deleteDoctor(id).then(() => {
       setReload(true);
     });
   };
 
-  //Update Doctor
-
+  //------------------------------Update Doctor-----------------------------
   const handleUpdateDoctorInputs = (event) => {
     setUpdateDoctor({
       ...updateDoctor,
@@ -110,26 +116,12 @@ function Doctor() {
     });
   };
 
-  useEffect(() => {
-    getDoctors().then((data) => {
-      setDoctors(data);
-      console.log(data);
-    });
-    setReload(false);
-  }, [reload]);
-
-  // ---------------------------------------------------------------
-
-  // const filteredDoctors = doctors.filter((doctor) => doctor.name.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-  // const handleSearchTermChange = (event) => {
-  //   setSearchTerm(event.target.value);
-  // };
-
   return (
     <>
+      {/*--------------------------New Doctor Input Button------------------------ */}
       <div className="doctor-newdoctor">
-        <h2>Doktor Ekleme</h2>
+        <h1>Doktor Yonetimi</h1>
+        <h3>Doktor Ekleme</h3>
         <input
           type="text"
           placeholder="Adi"
@@ -173,9 +165,9 @@ function Doctor() {
         )}
       </div>
 
-      {/* ------------------------------------------------------ */}
+      {/*--------------------------Update Doctor Input Button------------------------ */}
       <div className="doctor-updatedoctor">
-        <h2>Doktor Güncelleme</h2>
+        <h3>Doktor Güncelleme</h3>
 
         <input
           type="text"
@@ -214,38 +206,48 @@ function Doctor() {
         />
         <button onClick={handleUpdateDoctorBtn}>Update</button>
       </div>
-{/* ---------------------------------------------------------------- */}
-      {/* <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search by name"
-          value={searchTerm}
-          onChange={handleSearchTermChange}
-        />
-      </div> */}
-
-      {/* ------------------------------------------------------ */}
+      {/* ------------------------------List Doctor ----------------------------- */}
       <div className="list">
-        <h2>Doktor Listesi</h2>
-        {doctors.map((doctor) => (
-          <div key={doctor.id}>
-            <h3>
-              {doctor.name} {doctor.id}
-              <span id={doctor.id} onClick={() => handleDelete(doctor.id)}>
-                <DeleteIcon />
-              </span>{" "}
-              <span onClick={() => handleUpdateIcon(doctor)}>
-                {" "}
-                <UpdateIcon />{" "}
-              </span>
-            </h3>{" "}
-            {doctor.address}
-          </div>
-        ))}
+        <h3>Doktor Listesi</h3>
+
+        <div className="table-container">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Ad Soyadi</th>
+                <th>Telefon</th>
+
+                <th>Adres</th>
+                <th>Sehir</th>
+                <th>E-mail</th>
+
+                <th>Islemler</th>
+              </tr>
+            </thead>
+            <tbody>
+              {doctors.map((doctor) => (
+                <tr key={doctor.id}>
+                  <td>{doctor.name}</td>
+                  <td>{doctor.phone}</td>
+                  <td>{doctor.address}</td>
+                  <td>{doctor.city}</td>
+                  <td>{doctor.mail}</td>
+                  <td>
+                    <span onClick={() => handleUpdateIcon(doctor)}>
+                      <UpdateIcon />
+                    </span>
+                    <span onClick={() => handleDelete(doctor.id)}>
+                      <DeleteIcon />
+                    </span>{" "}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <Outlet />
     </>
   );
 }
-
 export default Doctor;

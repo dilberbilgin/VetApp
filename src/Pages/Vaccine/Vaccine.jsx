@@ -1,7 +1,8 @@
 
 import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import UpdateIcon from "@mui/icons-material/Update";
+// import UpdateIcon from "@mui/icons-material/Update";
+import UpdateIcon from "@mui/icons-material/Edit";
 
 import {
   getVaccines,
@@ -74,8 +75,12 @@ function Vaccine() {
       code: "",
       protectionStartDate: "",
       protectionFinishDate: "",
-      animal: "",
-      report: "",
+      animal:{
+        id: "",
+      } ,
+      report: {
+        id: ""
+      },
     });
   };
 
@@ -121,8 +126,12 @@ function Vaccine() {
       code: "",
       protectionStartDate: "",
       protectionFinishDate: "",
-      animal: "",
-      report: "",
+      animal:{
+        id: "",
+      } ,
+      report: {
+        id: ""
+      },
     });
   };
 
@@ -162,7 +171,8 @@ function Vaccine() {
   return (
     <>
       <div className="vaccine-newvaccine">
-        <h2>Asi Gun Ekleme</h2>
+        <h1>Asi Yonetimi</h1>
+        <h3>Asi Gun Ekleme</h3>
         <input
           type="text"
           placeholder="Name"
@@ -192,7 +202,7 @@ function Vaccine() {
           onChange={handleNewVaccine}
         />
         
-        <select name="animal" onChange={handleNewVaccine}>
+        <select value={newVaccine.animal.id} name="animal" onChange={handleNewVaccine}>
           <option value="" disabled={true} selected={true}>
             animal seciniz
           </option>
@@ -201,7 +211,7 @@ function Vaccine() {
           })}
         </select>
 
-        <select name="report" onChange={handleNewVaccine}>
+        <select value={newVaccine.report.id} name="report" onChange={handleNewVaccine}>
           <option value="" disabled={true} selected={true}>
             report seciniz
           </option>
@@ -215,7 +225,7 @@ function Vaccine() {
 
       {/* ------------------------------------------------------ */}
       <div className="vaccine-updatevaccine">
-        <h2>Asi Güncelleme</h2>
+        <h3>Asi Güncelleme</h3>
 
         <input
          type="text"
@@ -249,16 +259,16 @@ function Vaccine() {
          onChange={handleUpdateVaccineInputs}
         />
         
-        <select name="animal" onChange={handleUpdateVaccineInputs}>
+        <select value={newVaccine.animal.id} name="animal" onChange={handleUpdateVaccineInputs}>
           <option value="" disabled={true} selected={true}>
-            vaccine seciniz
+            animal seciniz
           </option>
           {animals.map((animal) => {
             return <option value={animal.id}>{animal.name}</option>;
           })}
         </select>
 
-        <select name="report" onChange={handleUpdateVaccineInputs}>
+        <select value={newVaccine.report.id} name="report" onChange={handleUpdateVaccineInputs}>
           <option value="" disabled={true} selected={true}>
             report seciniz
           </option>
@@ -272,8 +282,48 @@ function Vaccine() {
 
       {/* ------------------------------------------------------ */}
       <div className="list">
-        <h2>Asi Gun Listesi</h2>
-        {vaccines.map((vaccine) => (
+        <h3>Asi Gun Listesi</h3>
+
+        <div className="table-container">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Asi</th>
+                <th>Asi Kodu</th>
+                <th>Koruma Baslangic Tarihi</th>
+                <th>Koruma Bitis Tarihi</th>
+                <th>Hayvan Adi</th>
+                {/* <th>Rapor Basligi</th> */}
+                <th>Islemler</th>
+              </tr>
+            </thead>
+            <tbody>
+              {vaccines.map((vaccine) => (
+                <tr key={vaccine.id}>
+                  <td>{vaccine.name}</td>
+                  <td>{vaccine.code}</td>
+                  <td>{vaccine.protectionStartDate}</td>
+                  <td>{vaccine.protectionFinishDate}</td>
+                  <td>{vaccine.animal.name}</td>
+                  {/* <td>{vaccine.report.title}</td> */}
+
+                  <td>
+                    <span onClick={() => handleUpdateIcon(vaccine)}>
+                      <UpdateIcon />
+                    </span>
+                    <span onClick={() => handleDelete(vaccine.id)}>
+                      <DeleteIcon />
+                    </span>{" "}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+
+
+        {/* {vaccines.map((vaccine) => (
           <div key={vaccine.id}>
             <h3>
             {vaccine.id} - {vaccine.animal.name} / {vaccine.code}
@@ -287,7 +337,11 @@ function Vaccine() {
             </h3>{" "}
             {vaccine.protectionStartDate} /{vaccine.protectionFinishDate}
           </div>
-        ))}
+        ))} */}
+
+
+
+
       </div>
     </>
   );

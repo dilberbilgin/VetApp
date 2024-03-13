@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import UpdateIcon from "@mui/icons-material/Update";
+// import UpdateIcon from "@mui/icons-material/Update";
+import UpdateIcon from "@mui/icons-material/Edit";
 
 import {
   getCustomers,
@@ -10,10 +11,13 @@ import {
 } from "../../API/customer";
 import "./Customer.css";
 
+//------------------------------Use State-----------------------------
+
 function Customer() {
   const [customers, setCustomers] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [reload, setReload] = useState(true);
-
+  const [search, setSearch] = useState("");
   const [newCustomer, setNewCustomer] = useState({
     name: "",
     phone: "",
@@ -21,7 +25,6 @@ function Customer() {
     address: "",
     city: "",
   });
-
   const [updateCustomer, setUpdateCustomer] = useState({
     name: "",
     phone: "",
@@ -30,8 +33,16 @@ function Customer() {
     city: "",
   });
 
-  //New Customer
+  //------------------------------Use Effect-----------------------------
+  useEffect(() => {
+    getCustomers().then((data) => {
+      setCustomers(data);
+      setSearchResults(data);
+    });
+    setReload(false);
+  }, [reload]);
 
+  //------------------------------New Customer-----------------------------
   const handleNewCustomer = (event) => {
     setNewCustomer({
       ...newCustomer,
@@ -56,16 +67,14 @@ function Customer() {
 
   console.log(customers);
 
-  //Delete Customer
-
+  //------------------------------Delete Customer-----------------------------
   const handleDelete = (id) => {
     deleteCustomer(id).then(() => {
       setReload(true);
     });
   };
 
-  //Update Customer
-
+  //------------------------------Update Customer-----------------------------
   const handleUpdateCustomerInputs = (event) => {
     setUpdateCustomer({
       ...updateCustomer,
@@ -91,16 +100,18 @@ function Customer() {
     setUpdateCustomer(customer);
   };
 
-  useEffect(() => {
-    getCustomers().then((data) => {
-      setCustomers(data);
-    });
-    setReload(false);
-  }, [reload]);
+  //------------------------------Search Customer-----------------------------
+  const handleSearch = () => {
+    const filteredCustomer = searchResults.filter((customer) =>
+      customer.name.toLowerCase().includes(search.toLowerCase())
+    );
+    setCustomers(filteredCustomer);
+  };
 
   return (
-    <>
-      <div className="customer-newccustomer">
+    <div className="container">
+      {/*--------------------------New Customer Input Button------------------------ */}
+      <div className="customer-newcustomer">
         <h1>Musteri Yonetimi</h1>
         <h3>Musteri Ekle</h3>
 
@@ -146,8 +157,7 @@ function Customer() {
         <button onClick={handleNewCustomerBtn}>Create</button>
       </div>
 
-      {/* ------------------------------------------------------ */}
-
+      {/* -------------------------Update Customer Input Button------------------------ */}
       <div className="customer-updatecustomer">
         <h3>Musteri Guncelle</h3>
 
@@ -172,7 +182,6 @@ function Customer() {
           value={updateCustomer.mail}
           onChange={handleUpdateCustomerInputs}
         />
-
         <input
           type="text"
           placeholder="Adres"
@@ -180,7 +189,6 @@ function Customer() {
           value={updateCustomer.address}
           onChange={handleUpdateCustomerInputs}
         />
-
         <input
           type="text"
           placeholder="Sehir"
@@ -188,53 +196,123 @@ function Customer() {
           value={updateCustomer.city}
           onChange={handleUpdateCustomerInputs}
         />
-
         <button onClick={handleUpdateCustomerBtn}>Update</button>
       </div>
 
-      {/* ------------------------------------------------------ */}
+      {/* ---------------------------Search Customer Input Button------------------------ */}
+      <div className="search-bar">
+      <h3>Musteri Ara</h3>
+        <input
+          type="text"
+          placeholder="isim giriniz... "
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
 
+      {/* ------------------------------List Customer ----------------------------- */}
       <div className="list">
         <h3>Musteri Listesi</h3>
 
         <div className="table-container">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Ad Soyadi</th>
-              <th>E-mail</th>
-              <th>Adres</th>
-              <th>Sehir</th>
-              <th>Telefon</th>
-              <th>Islemler</th>
-            </tr>
-          </thead>
-          <tbody>
-            {customers.map((customer) => (
-              <tr key={customer.id}>
-                <td>{customer.name}</td>
-                <td>{customer.mail}</td>
-                <td>{customer.address}</td>
-                <td>{customer.city}</td>
-                <td>{customer.phone}</td>
-                <td>
-                  <span onClick={() => handleDelete(customer.id)}>
-                    <DeleteIcon />
-                  </span>{" "}
-                  <span onClick={() => handleUpdateIcon(customer)}>
-                    <UpdateIcon />
-                  </span>
-                </td>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Ad Soyadi</th>
+                <th>E-mail</th>
+                <th>Adres</th>
+                <th>Sehir</th>
+                <th>Telefon</th>
+                <th>Islemler</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {customers.map((customer) => (
+                <tr key={customer.id}>
+                  <td>{customer.name}</td>
+                  <td>{customer.mail}</td>
+                  <td>{customer.address}</td>
+                  <td>{customer.city}</td>
+                  <td>{customer.phone}</td>
+                  <td>
+                    <span onClick={() => handleUpdateIcon(customer)}>
+                      <UpdateIcon />
+                    </span>
+                    <span onClick={() => handleDelete(customer.id)}>
+                      <DeleteIcon />
+                    </span>{" "}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-
-        
       </div>
+    </div>
+  );
+}
+export default Customer;
 
-      {/* <div className="list">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  /* <div className="list">
         <h2>Customer Listesi</h2>
         
         {customers.map((customer) => (
@@ -252,9 +330,10 @@ function Customer() {
             {customer.address}
           </div>
         ))}
-      </div> */}
-    </>
-  );
+      </div> */
 }
+//     </>
+//   );
+// }
 
-export default Customer;
+// export default Customer;

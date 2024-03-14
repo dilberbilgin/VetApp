@@ -17,8 +17,8 @@ import { getDoctors } from "../../API/doctor";
 
 function AvailableDate() {
   const [availableDates, setAvailableDates] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
   const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [reload, setReload] = useState(true);
   const [alert, setAlert] = useState(false);
@@ -76,10 +76,8 @@ function AvailableDate() {
         doctor: {
           id: "",
         },
-      })
-    })
-   
-    .catch((error) => {
+      });
+    }).catch((error) => {
       setAlert(true);
       setTimeout(() => {
         setAlert(false);
@@ -116,19 +114,19 @@ function AvailableDate() {
   const handleUpdateAvailableDateBtn = () => {
     updateAvailableDateFunc(updateAvailableDate).then(() => {
       setReload(true);
-    });
-    setUpdateAvailableDate({
-      availableDate: "",
-      doctor: {
-        id: "",
-      },
+      setUpdateAvailableDate({
+        availableDate: "",
+        doctor: {
+          id: "",
+        },
+      });
+    }).catch((error) => {
+      setAlert(2);
+      setTimeout(() => {
+        setAlert(0);
+      }, 3000);
     });
   };
-
-  // const handleUpdateIcon = (availableDate) => {
-  //   console.log(availableDate);
-  //   setUpdateAvailableDate(availableDate);
-  // };
 
   const handleUpdateIcon = (availableDate) => {
     setUpdateAvailableDate({
@@ -139,6 +137,26 @@ function AvailableDate() {
   };
 
     //------------------------------Search Availablel Date-----------------------------
+    
+    const handleInputSelect = (event) => {
+      setSearch(event.target.value)
+      if (event.target.name === "doctor") {
+        setNewAvailableDate({
+          ...newAvailableDate,
+          doctor: {
+            id: event.target.value,
+          },
+        });
+      } else {
+        setNewAvailableDate({
+          ...newAvailableDate,
+          [event.target.name]: event.target.value,
+        });
+      }
+      console.log(newAvailableDate);
+    };
+    
+    
     const handleSearch = () => {
       const filteredAvailableDate = searchResults.filter((availableDate) =>
       availableDate.availableDate.toLowerCase().includes(search.toLowerCase())
@@ -147,6 +165,10 @@ function AvailableDate() {
       setSearch("");
     };
 
+    const handleReset = () => {
+      setSearch("");
+      setAvailableDates(searchResults);
+    };
 
   return (
     <>
@@ -179,11 +201,11 @@ function AvailableDate() {
         </select>
 
         <button onClick={handleNewAvailableDateBtn}>Create</button>
-        {alert && (
+        {alert === 1 ? (
           <Alert severity="error">
-            The date is not available!
+            This date is not available!
           </Alert>
-        )}
+        ):null}
       </div>
 
        {/*--------------------------Update AvailableDate Input Button------------------------ */}
@@ -210,13 +232,18 @@ function AvailableDate() {
         />
 
         <button onClick={handleUpdateAvailableDateBtn}>Update</button>
+        {alert === 2 ? (
+          <Alert severity="error">
+            This date has already been registered in the system!
+          </Alert>
+        ):null}
       </div>
 
       {/* ---------------------------Search AvailableDate Input Button------------------------ */}
       <div className="search-bar">
       <h3 className="available-h3">Musait Gun Ara</h3>
 
-      <select value={search} name="doctor" onChange={handleSearch}>
+      <select value={search} name="doctor" onChange={handleInputSelect}>
           <option value="" disabled={true} selected={true}>
             doctor seciniz
           </option>
@@ -234,7 +261,13 @@ function AvailableDate() {
         />
         <button onClick={handleSearch}>Search</button>
       </div>
+      
+      <div className="reset-available">
+      <button className="reset" onClick={handleReset}>Tum Listeyi Goster</button>
       </div>
+      </div>
+     
+
 
       {/* ------------------------------------------------------ */}
       <div className="list">

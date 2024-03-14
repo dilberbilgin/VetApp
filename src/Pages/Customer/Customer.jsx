@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 // import UpdateIcon from "@mui/icons-material/Update";
 import UpdateIcon from "@mui/icons-material/Edit";
+import Alert from "@mui/material/Alert";
 
 import {
   getCustomers,
@@ -15,9 +16,11 @@ import "./Customer.css";
 
 function Customer() {
   const [customers, setCustomers] = useState([]);
+  const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [reload, setReload] = useState(true);
-  const [search, setSearch] = useState("");
+  const [alert, setAlert] = useState(0);
+
   const [newCustomer, setNewCustomer] = useState({
     name: "",
     phone: "",
@@ -55,14 +58,20 @@ function Customer() {
     console.log(newCustomer);
     createCustomer(newCustomer).then(() => {
       setReload(true);
-    });
-    setNewCustomer({
-      name: "",
-      phone: "",
-      mail: "",
-      address: "",
-      city: "",
-    });
+      setNewCustomer({
+        name: "",
+        phone: "",
+        mail: "",
+        address: "",
+        city: "",
+      });
+    }).catch((error) => {
+      setAlert(1);
+      setTimeout(() => {
+        setAlert(0);
+      }, 3000);
+    })
+    
   };
 
   console.log(customers);
@@ -85,14 +94,20 @@ function Customer() {
   const handleUpdateCustomerBtn = () => {
     updateCustomerFunc(updateCustomer).then(() => {
       setReload(true);
+      setUpdateCustomer({
+        name: "",
+        phone: "",
+        mail: "",
+        address: "",
+        city: "",
+      });
+    }).catch((error) => {
+      setAlert(2);
+      setTimeout(() => {
+        setAlert(0);
+      }, 3000);
     });
-    setUpdateCustomer({
-      name: "",
-      phone: "",
-      mail: "",
-      address: "",
-      city: "",
-    });
+    
   };
 
   const handleUpdateIcon = (customer) => {
@@ -108,23 +123,28 @@ function Customer() {
     setCustomers(filteredCustomer);
   };
 
+  const handleReset = () => {
+    setSearch("");
+    setCustomers(searchResults);
+  };
+
   return (
     <div className="container">
       {/*--------------------------New Customer Input Button------------------------ */}
       <div className="customer-newcustomer">
-        <h1>Musteri Yonetimi</h1>
-        <h3>Musteri Ekle</h3>
+        <h1>Customer Management</h1>
+        <h3>Add Customer</h3>
 
         <input
           type="text"
-          placeholder="Adi"
+          placeholder="Name"
           name="name"
           value={newCustomer.name}
           onChange={handleNewCustomer}
         />
         <input
           type="text"
-          placeholder="Telefon"
+          placeholder="Phone"
           name="phone"
           value={newCustomer.phone}
           onChange={handleNewCustomer}
@@ -132,7 +152,7 @@ function Customer() {
 
         <input
           type="text"
-          placeholder="E-mail"
+          placeholder="Email"
           name="mail"
           value={newCustomer.mail}
           onChange={handleNewCustomer}
@@ -140,7 +160,7 @@ function Customer() {
 
         <input
           type="text"
-          placeholder="Adres"
+          placeholder="Address"
           name="address"
           value={newCustomer.address}
           onChange={handleNewCustomer}
@@ -148,36 +168,41 @@ function Customer() {
 
         <input
           type="text"
-          placeholder="Sehir"
+          placeholder="City"
           name="city"
           value={newCustomer.city}
           onChange={handleNewCustomer}
         />
 
         <button onClick={handleNewCustomerBtn}>Create</button>
+        {alert === 1 ? (
+          <Alert severity="error">
+            This customer has already been registered in the system!
+          </Alert>
+        ):null}
       </div>
 
       {/* -------------------------Update Customer Input Button------------------------ */}
       <div className="customer-updatecustomer">
-        <h3>Musteri Guncelle</h3>
+        <h3>Update Customer</h3>
 
         <input
           type="text"
-          placeholder="Adi"
+          placeholder="Name"
           name="name"
           value={updateCustomer.name}
           onChange={handleUpdateCustomerInputs}
         />
         <input
           type="text"
-          placeholder="Telefon"
+          placeholder="Phone"
           name="phone"
           value={updateCustomer.phone}
           onChange={handleUpdateCustomerInputs}
         />
         <input
           type="text"
-          placeholder="E-mail"
+          placeholder="Email"
           name="mail"
           value={updateCustomer.mail}
           onChange={handleUpdateCustomerInputs}
@@ -191,40 +216,45 @@ function Customer() {
         />
         <input
           type="text"
-          placeholder="Sehir"
+          placeholder="City"
           name="city"
           value={updateCustomer.city}
           onChange={handleUpdateCustomerInputs}
         />
         <button onClick={handleUpdateCustomerBtn}>Update</button>
+        {alert === 2 ? (
+          <Alert severity="error">
+            This customer has already been registered in the system!
+          </Alert>
+        ):null}
       </div>
 
       {/* ---------------------------Search Customer Input Button------------------------ */}
       <div className="search-bar">
-      <h3>Musteri Ara</h3>
-        <input
-          type="text"
-          placeholder="isim giriniz... "
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button onClick={handleSearch}>Search</button>
+        <h3>Search Customer</h3>
+        <input 
+        type="text" 
+        placeholder="Enter name..." 
+        value={search} 
+        onChange={(e) => setSearch(e.target.value)} />
+        <button className="search-button" onClick={handleSearch}>Search</button>
+        <button className="reset-button" onClick={handleReset}>Show All</button>
       </div>
 
       {/* ------------------------------List Customer ----------------------------- */}
       <div className="list">
-        <h3>Musteri Listesi</h3>
+        <h3>Customer List</h3>
 
         <div className="table-container">
           <table className="table">
             <thead>
               <tr>
-                <th>Ad Soyadi</th>
-                <th>E-mail</th>
-                <th>Adres</th>
-                <th>Sehir</th>
-                <th>Telefon</th>
-                <th>Islemler</th>
+              <th>Name Surname</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Phone</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>

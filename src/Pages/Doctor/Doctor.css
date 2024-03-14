@@ -1,8 +1,17 @@
-
-
-h1{
-  text-align: center;
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
+
+h1, h2, h3, h4 {
+  color: #363062;
+  margin-bottom: 5px;
+}
+
+/* h1{
+  text-align: center;
+} */
 
 .doctor-newdoctor,
 .doctor-updatedoctor ,
@@ -51,6 +60,20 @@ h1, h2, h3{
 .doctor-updatedoctor button:hover {
   background-color: #F17C16; 
 }
+
+/* .reset-doctor{
+  padding: 10px 20px;
+  background-color: #EF476F;
+  color: #fff; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+
+.reset-doctor:hover {
+  background-color: #FFD166;
+} */
 
 .list {
   margin-top: 15px;

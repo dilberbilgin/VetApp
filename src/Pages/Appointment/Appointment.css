@@ -45,7 +45,8 @@ h1, h2, h3, h4{
 
 .appointment-newappointment button,
 .appointment-updateappointment button,
-.search-bar button {
+.search-bar button
+ {
   padding: 10px 20px;
   background-color: #F99417; 
   color: #fff; 
@@ -54,10 +55,31 @@ h1, h2, h3, h4{
   cursor: pointer;
 }
 
+.reset{
+  padding: 10px 20px;
+  background-color: #EF476F;
+  color: #fff; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+
+.reset:hover {
+  background-color: #FFD166;
+}
+
 .appointment-newappointment button:hover,
 .appointment-updateappointment button:hover,
 .search-bar button:hover {
   background-color: #F17C16; 
+}
+
+.search-bar-appointment{
+  
+  background-color: #F5F5F5;
+  padding-bottom: 10px;
+  border-radius: 10px;
 }
 
 .list {

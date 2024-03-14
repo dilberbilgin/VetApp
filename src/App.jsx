@@ -8,6 +8,7 @@ import Vaccine from "./Pages/Vaccine/Vaccine";
 import Report from "./Pages/Report/Report";
 import "./App.css";
 import Navbar from "./Components/Navbar";
+import HomePage from "./Pages/Home/Home";
 
 function App() {
   return (
@@ -15,10 +16,11 @@ function App() {
       <Navbar />
 
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/customer" element={<Customer />} />
         <Route path="/animal" element={<Animal />} />
-        <Route path="/doctor" element={<Doctor />} >
-        <Route index ={true} element = {<AvailableDate />} />
+        <Route path="/doctor" element={<Doctor />}>
+          <Route index={true} element={<AvailableDate />} />
         </Route>
         <Route path="/availableDate" element={<AvailableDate />} />
         <Route path="/appointment" element={<Appointment />} />

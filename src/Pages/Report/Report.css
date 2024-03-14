@@ -55,7 +55,7 @@ h1, h2, h3, h4{
 }
 
 .report-newreport button:hover,
-.vaccine-updatevaccine button:hover,
+.report-updatereport button:hover,
 .search-bar button:hover {
   background-color: #F17C16; 
 }

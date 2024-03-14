@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 // import UpdateIcon from "@mui/icons-material/Update";
 import UpdateIcon from "@mui/icons-material/Edit";
+import Alert from "@mui/material/Alert";
 
 import {
   getAnimals,
@@ -20,6 +21,8 @@ function Animal() {
   const [search, setSearch] = useState("");
   const [customers, setCustomers] = useState([]);
   const [reload, setReload] = useState(true);
+  const [alert, setAlert] = useState(0);
+
   const [newAnimal, setNewAnimal] = useState({
     name: "",
     species: "",
@@ -40,18 +43,18 @@ function Animal() {
     customer: "",
   });
 
-    //------------------------------Use Effect-----------------------------
-    useEffect(() => {
-      getAnimals().then((data) => {
-        setAnimals(data);
-        setSearchResults(data);
-      });
-      getCustomers().then((data) => {
-        setCustomers(data);
-        console.log(data);
-      });
-      setReload(false);
-    }, [reload]);
+  //------------------------------Use Effect-----------------------------
+  useEffect(() => {
+    getAnimals().then((data) => {
+      setAnimals(data);
+      setSearchResults(data);
+    });
+    getCustomers().then((data) => {
+      setCustomers(data);
+      console.log(data);
+    });
+    setReload(false);
+  }, [reload]);
 
   //------------------------------New Animal-----------------------------
 
@@ -73,22 +76,29 @@ function Animal() {
   };
 
   const handleNewAnimalBtn = () => {
-    createAnimal(newAnimal).then(() => {
-      console.log(newAnimal);
-      setReload(true);
-    });
-    setNewAnimal({
-      name: "",
-      species: "",
-      breed: "",
-      gender: "",
-      colour: "",
-      dateOfBirth: "",
-      customer: "",
-    });
+    createAnimal(newAnimal)
+      .then(() => {
+        console.log(newAnimal);
+        setReload(true);
+        setNewAnimal({
+          name: "",
+          species: "",
+          breed: "",
+          gender: "",
+          colour: "",
+          dateOfBirth: "",
+          customer: "",
+        });
+      })
+      .catch((error) => {
+        setAlert(1);
+        setTimeout(() => {
+          setAlert(0);
+        }, 3000);
+      });
   };
 
- //------------------------------Delete Animal-----------------------------
+  //------------------------------Delete Animal-----------------------------
 
   const handleDelete = (id) => {
     deleteAnimal(id).then(() => {
@@ -96,39 +106,44 @@ function Animal() {
     });
   };
 
- //------------------------------Update Animal-----------------------------
+  //------------------------------Update Animal-----------------------------
 
   const handleUpdateAnimalInputs = (event) => {
-    if (event.target.name === "customer"){
+    if (event.target.name === "customer") {
       setUpdateAnimal({
         ...updateAnimal,
         customer: {
           id: event.target.value,
         },
       });
-
     } else {
       setUpdateAnimal({
         ...updateAnimal,
         [event.target.name]: event.target.value,
       });
     }
-    
   };
 
   const handleUpdateAnimalBtn = () => {
-    updateAnimalFunc(updateAnimal).then(() => {
-      setReload(true);
-    });
-    setUpdateAnimal({
-      name: "",
-      species: "",
-      breed: "",
-      gender: "",
-      colour: "",
-      dateOfBirth: "", // BU KISIMLAR KONTROL !!
-      customer: "", // BU KISIMLAR KONTROL !!
-    });
+    updateAnimalFunc(updateAnimal)
+      .then(() => {
+        setReload(true);
+        setUpdateAnimal({
+          name: "",
+          species: "",
+          breed: "",
+          gender: "",
+          colour: "",
+          dateOfBirth: "", 
+          customer: "", 
+        });
+      })
+      .catch((error) => {
+        setAlert(2);
+        setTimeout(() => {
+          setAlert(0); 
+        }, 3000);
+      });
   };
 
   // const handleUpdateIcon = (animal) => {
@@ -152,23 +167,26 @@ function Animal() {
   //------------------------------Search Animal-----------------------------
   const handleSearch = () => {
     const filteredAnimal = searchResults.filter((animal) =>
-    animal.name.toLowerCase().includes(search.toLowerCase())
+      animal.name.toLowerCase().includes(search.toLowerCase())
     );
     setAnimals(filteredAnimal);
   };
 
   const handleSearchAnimalByCustomerName = () => {
     const filteredAnimal = searchResults.filter((animal) =>
-    animal.customer.name.toLowerCase().includes(search.toLowerCase())
+      animal.customer.name.toLowerCase().includes(search.toLowerCase())
     );
     setAnimals(filteredAnimal);
   };
 
-  
+  const handleReset = () => {
+    setSearch("");
+    setAnimals(searchResults);
+  };
 
   return (
     <>
-     {/*--------------------------New Animal Input Button------------------------ */}
+      {/*--------------------------New Animal Input Button------------------------ */}
       <div className="animal-newanimal">
         <h1>Hayvan Yonetimi</h1>
         <h3>Hayvan Ekleme</h3>
@@ -216,7 +234,7 @@ function Animal() {
         />
 
         <select name="customer" onChange={handleNewAnimal}>
-          <option value="" disabled={true} selected={true} >
+          <option value="" disabled={true} selected={true}>
             customer seciniz
           </option>
           {customers.map((customer) => {
@@ -225,9 +243,14 @@ function Animal() {
         </select>
 
         <button onClick={handleNewAnimalBtn}>Create</button>
+        {alert === 1 ? (
+          <Alert severity="error">
+            This animal has already been registered in the system!
+          </Alert>
+        ) : null}
       </div>
 
-     {/*--------------------------Update Animal Input Button------------------------ */}
+      {/*--------------------------Update Animal Input Button------------------------ */}
       <div className="animal-updateanimal">
         <h3>Hayvan Güncelleme</h3>
 
@@ -273,8 +296,8 @@ function Animal() {
           value={updateAnimal.dateOfBirth}
           onChange={handleUpdateAnimalInputs}
         />
-       <select name="customer" onChange={handleUpdateAnimalInputs}>
-          <option value="" disabled={true} selected={true} >
+        <select name="customer" onChange={handleUpdateAnimalInputs}>
+          <option value="" disabled={true} selected={true}>
             customer seciniz
           </option>
           {customers.map((customer) => {
@@ -283,36 +306,45 @@ function Animal() {
         </select>
 
         <button onClick={handleUpdateAnimalBtn}>Update</button>
+        {alert === 2 ? (
+          <Alert severity="error">
+            This animal has already been registered in the system!
+          </Alert>
+        ) : null}
       </div>
 
-     {/*--------------------------Search Animal Input Button------------------------ */}
+      {/*--------------------------Search Animal Input Button------------------------ */}
 
-     <div className="searchs">
-     <div className="search-bar">
-      <h3>Hayvan Ara</h3>
-        <input
-          type="text"
-          placeholder="isim giriniz... "
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+      <div className="search-bar-animal">
+        <div className="search-bar">
+          <h3>Hayvan Ara</h3>
+          <input
+            type="text"
+            placeholder="isim giriniz... "
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
-        <button onClick={handleSearch}>Search</button>
+          <button onClick={handleSearch}>Search</button>
+        </div>
+
+        <div className="search-bar">
+          <h3>Hayvan Sahibi Ara</h3>
+          <input
+            type="text"
+            placeholder="musteri ismi giriniz... "
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button onClick={handleSearchAnimalByCustomerName}>Search</button>
+        </div>
+
+        <div className="reset-animal">
+          <button className="reset" onClick={handleReset}>
+            Tum Listeyi Goster
+          </button>
+        </div>
       </div>
-
-      <div className="search-bar">
-      <h3>Hayvan Sahibi Ara</h3>
-        <input
-          type="text"
-          placeholder="musteri ismi giriniz... "
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button onClick={handleSearchAnimalByCustomerName}>Search</button>
-      </div>
-
-
-     </div>
 
       {/* ------------------------------List Animal ----------------------------- */}
       <div className="list">
@@ -342,7 +374,7 @@ function Animal() {
                   <td>{animal.colour}</td>
                   <td>{animal.dateOfBirth}</td>
                   <td>{animal.customer.name}</td>
-                  
+
                   <td>
                     <span onClick={() => handleUpdateIcon(animal)}>
                       <UpdateIcon />
@@ -356,16 +388,15 @@ function Animal() {
             </tbody>
           </table>
         </div>
-
-        </div>
+      </div>
     </>
   );
 }
 
 export default Animal;
 
-
-        {/* {animals.map((animal) => (
+{
+  /* {animals.map((animal) => (
           <div key={animal.id}>
             <h3>
               {animal.name} {animal.id}
@@ -379,13 +410,14 @@ export default Animal;
             </h3>{" "}
             {animal.breed}
           </div>
-        ))} */}
+        ))} */
+}
 
-
-
-      {/* </div>
+{
+  /* </div>
     </>
   );
 }
 
-export default Animal; */}
+export default Animal; */
+}

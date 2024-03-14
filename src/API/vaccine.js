@@ -30,4 +30,15 @@ export const updateVaccineFunc = async (vaccine) => {
   return data;
 };
 
+export const getVaccinesByDate = async (startDate, endDate) => {
+
+  const { data } = await
+  axios.get (
+    `${import.meta.env.VITE_APP_BASE_URL}/api/v1/vaccines/finishDate?startDate=${startDate}&endDate=${endDate}`
+    );
+    console.log(data);
+  return data;
+};
+
+
 

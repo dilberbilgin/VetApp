@@ -29,4 +29,13 @@ export const updateDoctorFunc = async (doctor) => {
   return data;
 };
 
+export const getDoctorByName = async (name) => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_APP_BASE_URL}/api/v1/doctors/byName?name=${name}`
+  );
+   
+  return data;
+};
+//http://localhost:8080/api/v1/doctors/byName?name=Vet Kopek
+
 

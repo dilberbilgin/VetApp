@@ -230,8 +230,8 @@ function Vaccine() {
     <>
         {/*--------------------------New Vaccine Input Button------------------------ */}
       <div className="vaccine-newvaccine">
-        <h1>Asi Yonetimi</h1>
-        <h3>Asi Gun Ekleme</h3>
+        <h1>Vaccine Management</h1>
+        <h3>Add Vaccine</h3>
         <input
           type="text"
           placeholder="Name"
@@ -263,7 +263,7 @@ function Vaccine() {
         
         <select value={newVaccine.animal.id} name="animal" onChange={handleNewVaccine}>
           <option value="" disabled={true} selected={true}>
-            animal seciniz
+            Select Animal
           </option>
           {animals.map((animal) => {
             return <option value={animal.id}>{animal.name}</option>;
@@ -272,7 +272,7 @@ function Vaccine() {
 
         <select value={newVaccine.report.id} name="report" onChange={handleNewVaccine}>
           <option value="" disabled={true} selected={true}>
-            report seciniz
+            Select Report
           </option>
           {reports.map((report) => {
             return <option value={report.id}>{report.title}</option>;
@@ -289,7 +289,7 @@ function Vaccine() {
 
         {/*--------------------------Update Vaccine Input Button------------------------ */}
       <div className="vaccine-updatevaccine">
-        <h3>Asi Güncelleme</h3>
+        <h3>Update Vaccine</h3>
 
         <input
          type="text"
@@ -325,7 +325,7 @@ function Vaccine() {
         
         <select value={updateVaccine.animal.id} name="animal" onChange={handleUpdateVaccineInputs}>
           <option value="" disabled={true} selected={true}>
-            animal seciniz
+            Select Animal
           </option>
           {animals.map((animal) => {
             return <option value={animal.id}>{animal.name}</option>;
@@ -334,7 +334,7 @@ function Vaccine() {
 
         <select value={updateVaccine?.report?.id ? updateVaccine.report.id : ""} name="report" onChange={handleUpdateVaccineInputs}>
           <option value="" disabled={true} selected={true}>
-            report seciniz
+            Select Report
           </option>
           {reports.map((report) => {
             return <option value={report.id}>{report.title}</option>;
@@ -353,11 +353,11 @@ function Vaccine() {
 
        <div className="search-bar-vaccine">
        <div className="search-bar">
-      <h3>Isme Gore Asi Ara</h3>
+      <h3>Search Vaccine by Name</h3>
 
       <input
           type="text"
-          placeholder="Asi adi giriniz... "
+          placeholder="Enter vaccine name... "
           value={nameSearch}
           onChange={(e) => setNameSearch(e.target.value)}
         />
@@ -366,10 +366,10 @@ function Vaccine() {
 
 
       <div className="search-bar">
-      <h3>Hayvana Gore Asi Ara</h3>
+      <h3>Search Vaccine by Animal</h3>
       <input
           type="text"
-          placeholder="Hayvan adi giriniz... "
+          placeholder="Enter animal name... "
           value={animalSearch}
           onChange={(e) => setAnimalSearch(e.target.value)}
         />
@@ -378,7 +378,7 @@ function Vaccine() {
 
 
       <div className="search-bar">
-        <h3>Tarih Aralığına Göre Asi Ara</h3>
+        <h3>Search Vaccine by Date Range</h3>
         <input
           type="date"
           value={startDate}
@@ -390,40 +390,16 @@ function Vaccine() {
           onChange={(e) => setEndDate(e.target.value)}
         />
         <button onClick={handleSearchByDates}>Search</button>
+        <button className="reset-button" onClick={handleReset}>Show All</button>
+       
       </div>
-      
+
        </div>
+       
+       
       
-<div className="reset-field">
-<button className="reset" onClick={handleReset}>Tum Listeyi Goster</button>
-</div>
+
      
-      
-
-        {/* <button onClick={handleSearch}>Search</button>
-      </div> */}
-
-{/* <select value={search} name="vaccine" onChange={handleSearch}>
-          <option value="" disabled={true} selected={true}>
-            vaccine seciniz
-          </option>
-          {vaccines.map((vaccine) => {
-            return <option value={vaccine.id}>{vaccine.name}</option>;
-           
-          })}
-        </select>
-        
-        <input
-          type="date"
-          placeholder="gun giriniz... "
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
-       */}
-
-
 {/* ---------------------------List Vaccine------------------------ */}
       <div className="list">
         <h3>Asi Listesi</h3>

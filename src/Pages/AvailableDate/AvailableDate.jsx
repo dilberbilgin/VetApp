@@ -33,7 +33,7 @@ function AvailableDate() {
     doctor: "",
   });
 
-    //------------------------------Use Effect-----------------------------
+  //------------------------------Use Effect-----------------------------
   useEffect(() => {
     getAvailableDates().then((data) => {
       setAvailableDates(data);
@@ -68,21 +68,21 @@ function AvailableDate() {
 
   const handleNewAvailableDateBtn = () => {
     createAvailableDate(newAvailableDate)
-    .then(() => {
-      console.log(newAvailableDate);
-      setReload(true);
-      setNewAvailableDate({
-        availableDate: "",
-        doctor: {
-          id: "",
-        },
+      .then(() => {
+        setReload(true);
+        setNewAvailableDate({
+          availableDate: "",
+          doctor: {
+            id: "",
+          },
+        });
+      })
+      .catch((error) => {
+        setAlert(1);
+        setTimeout(() => {
+          setAlert(0);
+        }, 3000);
       });
-    }).catch((error) => {
-      setAlert(true);
-      setTimeout(() => {
-        setAlert(false);
-      }, 3000);
-    });
   };
 
   //------------------------------Delete Available Date-----------------------------
@@ -112,20 +112,22 @@ function AvailableDate() {
   };
 
   const handleUpdateAvailableDateBtn = () => {
-    updateAvailableDateFunc(updateAvailableDate).then(() => {
-      setReload(true);
-      setUpdateAvailableDate({
-        availableDate: "",
-        doctor: {
-          id: "",
-        },
+    updateAvailableDateFunc(updateAvailableDate)
+      .then(() => {
+        setReload(true);
+        setUpdateAvailableDate({
+          availableDate: "",
+          doctor: {
+            id: "",
+          },
+        });
+      })
+      .catch((error) => {
+        setAlert(2);
+        setTimeout(() => {
+          setAlert(0);
+        }, 3000);
       });
-    }).catch((error) => {
-      setAlert(2);
-      setTimeout(() => {
-        setAlert(0);
-      }, 3000);
-    });
   };
 
   const handleUpdateIcon = (availableDate) => {
@@ -136,152 +138,153 @@ function AvailableDate() {
     });
   };
 
-    //------------------------------Search Availablel Date-----------------------------
-    
-    const handleInputSelect = (event) => {
-      setSearch(event.target.value)
-      if (event.target.name === "doctor") {
-        setNewAvailableDate({
-          ...newAvailableDate,
-          doctor: {
-            id: event.target.value,
-          },
-        });
-      } else {
-        setNewAvailableDate({
-          ...newAvailableDate,
-          [event.target.name]: event.target.value,
-        });
-      }
-      console.log(newAvailableDate);
-    };
-    
-    
-    const handleSearch = () => {
-      const filteredAvailableDate = searchResults.filter((availableDate) =>
-      availableDate.availableDate.toLowerCase().includes(search.toLowerCase())
-      );
-      setAvailableDates(filteredAvailableDate);
-      setSearch("");
-    };
+  //------------------------------Search Availablel Date-----------------------------
 
-    const handleReset = () => {
-      setSearch("");
-      setAvailableDates(searchResults);
-    };
+  const handleInputSelect = (event) => {
+    setSearch(event.target.value);
+    if (event.target.name === "doctor") {
+      setNewAvailableDate({
+        ...newAvailableDate,
+        doctor: {
+          id: event.target.value,
+        },
+      });
+    } else {
+      setNewAvailableDate({
+        ...newAvailableDate,
+        [event.target.name]: event.target.value,
+      });
+    }
+    console.log(newAvailableDate);
+  };
+
+  const handleSearch = () => {
+    const filteredAvailableDate = searchResults.filter((availableDate) =>
+      availableDate.availableDate.toLowerCase().includes(search.toLowerCase())
+    );
+    setAvailableDates(filteredAvailableDate);
+    setSearch("");
+  };
+
+  const handleReset = () => {
+    setSearch("");
+    setAvailableDates(searchResults);
+  };
+
+  // const handleReset = () => {
+  //   setSearch("");
+  //   setAvailableDates(searchResults);
+  //   getAvailableDates().then((data) => {
+  //     setAvailableDates(data);
+  //   })
+  // };
 
   return (
     <>
-    {/*--------------------------New AvailableDate Input Button------------------------ */}
-    <h1 className="available-date-h1">Musait Gun Yonetimi </h1>
+      {/*--------------------------New AvailableDate Input Button------------------------ */}
+      <h1 className="available-date-h1">Available Date Management </h1>
       <div className="availabledate-buttons">
-        
-      <div className="availabledate-newawailabledate">
-   
-        <h3 className="available-h3">Musait Gun Ekle</h3>
-        <input
-          type="date"
-          placeholder="Musait Gun"
-          name="availableDate"
-          value={newAvailableDate.availableDate}
-          onChange={handleNewAvailableDate}
-        />
+        <div className="availabledate-newawailabledate">
+          <h3 className="available-h3">Add Available Date</h3>
 
-        <select
-          value={newAvailableDate.doctor.id}
-          name="doctor"
-          onChange={handleNewAvailableDate}
-        >
-          <option value="" disabled={true} selected={true}>
-            doktor seciniz
-          </option>
-          {doctors.map((doctor) => {
-            return <option value={doctor.id}>{doctor.name}</option>;
-          })}
-        </select>
+          <select
+            value={newAvailableDate.doctor.id}
+            name="doctor"
+            onChange={handleNewAvailableDate}
+          >
+            <option value="" disabled={true} selected={true}>
+              Select doctor
+            </option>
+            {doctors.map((doctor) => {
+              return <option value={doctor.id}>{doctor.name}</option>;
+            })}
+          </select>
+          <input
+            type="date"
+            placeholder="Available Date"
+            name="availableDate"
+            value={newAvailableDate.availableDate}
+            onChange={handleNewAvailableDate}
+          />
 
-        <button onClick={handleNewAvailableDateBtn}>Create</button>
-        {alert === 1 ? (
-          <Alert severity="error">
-            This date is not available!
-          </Alert>
-        ):null}
+          <button onClick={handleNewAvailableDateBtn}>Create</button>
+          {alert === 1 ? (
+            <Alert severity="error">This date is not available!</Alert>
+          ) : null}
+        </div>
+
+        {/*--------------------------Update AvailableDate Input Button------------------------ */}
+        <div className="availabledate-updateavailabledate">
+          <h3 className="available-h3">Update Available Date</h3>
+
+          <select
+            value={updateAvailableDate.doctor.id}
+            name="doctor"
+            onChange={handleUpdateAvailableDateInputs}
+          >
+            <option value="" disabled={true} selected={true}>
+              Select doctor
+            </option>
+            {doctors.map((doctor) => {
+              return <option value={doctor.id}>{doctor.name}</option>;
+            })}
+          </select>
+
+          <input
+            type="date"
+            placeholder="Available Date"
+            name="availableDate"
+            value={updateAvailableDate.availableDate}
+            onChange={handleUpdateAvailableDateInputs}
+          />
+
+          <button onClick={handleUpdateAvailableDateBtn}>Update</button>
+          {alert === 2 ? (
+            <Alert severity="error">
+              This date has already been registered in the system!
+            </Alert>
+          ) : null}
+        </div>
+
+        {/* ---------------------------Search AvailableDate Input Button------------------------ */}
+        <div className="search-bar">
+          <h3 className="available-h3">Search Available Date</h3>
+
+          <select value={search} name="doctor" onChange={handleInputSelect}>
+            <option value="" disabled={true} selected={true}>
+              Select doctor
+            </option>
+            {doctors.map((doctor) => {
+              return <option value={doctor.id}>{doctor.name}</option>;
+            })}
+          </select>
+
+          <input
+            type="date"
+            placeholder="Enter date... "
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button onClick={handleSearch}>Search</button>
+          <button className="reset" onClick={handleReset}>
+            Show All
+          </button>
+        </div>
       </div>
-
-       {/*--------------------------Update AvailableDate Input Button------------------------ */}
-      <div className="availabledate-updateavailabledate">
-        <h3 className="available-h3">Musait Gun Güncelle</h3>
-
-        
-
-        <select value={updateAvailableDate.doctor.id} name="doctor" onChange={handleUpdateAvailableDateInputs}>
-          <option value="" disabled={true} selected={true}>
-            doctor seciniz
-          </option>
-          {doctors.map((doctor) => {
-            return <option value={doctor.id}>{doctor.name}</option>;
-          })}
-        </select>
-
-        <input
-          type="date"
-          placeholder="Musait Gun"
-          name="availableDate"
-          value={updateAvailableDate.availableDate}
-          onChange={handleUpdateAvailableDateInputs}
-        />
-
-        <button onClick={handleUpdateAvailableDateBtn}>Update</button>
-        {alert === 2 ? (
-          <Alert severity="error">
-            This date has already been registered in the system!
-          </Alert>
-        ):null}
-      </div>
-
-      {/* ---------------------------Search AvailableDate Input Button------------------------ */}
-      <div className="search-bar">
-      <h3 className="available-h3">Musait Gun Ara</h3>
-
-      <select value={search} name="doctor" onChange={handleInputSelect}>
-          <option value="" disabled={true} selected={true}>
-            doctor seciniz
-          </option>
-          {doctors.map((doctor) => {
-            return <option value={doctor.id}>{doctor.name}</option>;
-           
-          })}
-        </select>
-        
-        <input
-          type="date"
-          placeholder="gun giriniz... "
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
-      
-      <div className="reset-available">
-      <button className="reset" onClick={handleReset}>Tum Listeyi Goster</button>
-      </div>
-      </div>
-     
-
 
       {/* ------------------------------------------------------ */}
       <div className="list">
-        <h3>Musait Gun Listesi</h3>
+        <h3>Available Date List</h3>
 
         <div className="table-container">
           <table className="table">
             <thead>
               <tr>
-                <th>Ad Soyadi</th>
-                <th>Musait Gun</th>
-                <th>Telefon</th>
-                <th>Mail</th>
-                <th>Islemler</th>
+                <th>Name Surname</th>
+                <th>Available Date</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -311,50 +314,6 @@ function AvailableDate() {
 }
 
 export default AvailableDate;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 {
   /* 

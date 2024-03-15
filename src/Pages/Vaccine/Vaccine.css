@@ -1,10 +1,13 @@
 
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
 
-.h1{
-  text-align: center;
-  padding: 1rem;
-  margin-top: 10px;
-
+h1, h2, h3, h4 {
+  color: #363062;
+  margin-bottom: 5px;
 }
 
 .vaccine-newvaccine,
@@ -15,15 +18,7 @@
   background-color: #F5F5F5; 
   border-radius: 10px;
   padding: 10px;
-
-  
 }
-
-h1, h2, h3, h4{
-  color: #363062; 
-  margin-bottom: 5px;
-}
-
 
 .vaccine-newvaccine input,
 .vaccine-updatevaccine input,
@@ -31,16 +26,25 @@ h1, h2, h3, h4{
 
   padding: 8px;
   border: 1px solid #4d4c7d32;  
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  */
   border-radius: 5px;
   color: #363062;
 }
 
-
-
 ::placeholder {
   color: #4d4c7d73;
   padding: 2px;
+}
+
+.vaccine-newvaccine select,
+.vaccine-updatevaccine select,
+.search-bar select {
+  padding: 8px;
+  border: 1px solid #4d4c7d32;
+  border-radius: 5px;
+  color: #363062;
+  width: 20%;
+  margin-bottom: 10px;
 }
 
 .vaccine-newvaccine button,
@@ -54,6 +58,22 @@ h1, h2, h3, h4{
   cursor: pointer;
 }
 
+.reset{
+  padding: 10px 20px;
+  background-color: #F99417; 
+  color: #fff; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom:20px
+
+}
+
+.reset:hover {
+  background-color: #FFD166;
+  transition: background-color 0.3s ease;
+}
+
 .vaccine-newvaccine button:hover,
 .vaccine-updatevaccine button:hover,
 .search-bar button:hover {
@@ -63,20 +83,40 @@ h1, h2, h3, h4{
 .search-bar-vaccine{
   display: flex;
   justify-content: center;
-  /* gap: 10px;
-  margin-top: 13px;
+  /* gap: 10px; */
+  /* margin-top: 13px;
   padding-bottom: 10px; */
-
+  
   background-color: #f5f5f5;
   padding-bottom: 10px;
   margin-top: 13px;
   /* border-radius: 10px; */
 }
 
-.reset-field{
-  background-color: #f5f5f5;
-  padding-bottom: 12px;
+.reset-button{
+ 
+  background-color: #F99417; 
+  color: #fff; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-right: 20px;
+ 
 }
+
+.reset-button:hover {
+  background-color: #FFD166;
+  transition: background-color 0.3s ease;
+}
+
+.reset-show{
+  background-color: #F5F5F5;
+  padding-bottom: 20px;
+
+}
+
+
 
 .list {
   margin-top: 1px;

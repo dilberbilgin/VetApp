@@ -17,15 +17,15 @@ import PetsIcon from '@mui/icons-material/Pets';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 
 const pages = [
-  { name: "RANDEVU", path: "/appointment" },
-  { name: "RAPOR", path: "/report" },
-  { name: "AŞI", path: "/vaccine" },
+  { name: "APPOINTMENT", path: "/appointment" },
+  { name: "REPORT", path: "/report" },
+  { name: "VACCINE", path: "/vaccine" },
 ];
 
 const settings = [ 
-  { name: "Müşteri", path: "/customer" },
-  { name: "Hayvan", path: "/animal" },
-  { name: "Doktor", path: "/doctor" },
+  { name: "Customer", path: "/customer" },
+  { name: "Animal", path: "/animal" },
+  { name: "Doctor", path: "/doctor" },
 ];
 
 function Navbar() {

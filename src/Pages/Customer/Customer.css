@@ -33,7 +33,7 @@ h1, h2, h3, h4 {
   margin-right: 10px;
 }
 
-.create-button, .update-button, .search-button{
+.create-button, .update-button, .search-button, .reset-button {
   transition: background-color 0.3s ease;
 }
 

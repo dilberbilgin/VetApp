@@ -10,8 +10,10 @@ import {
   deleteDoctor,
   createDoctor,
   updateDoctorFunc,
+  getDoctorByName,
 } from "../../API/doctor";
 import "./Doctor.css";
+
 
 //------------------------------Use State-----------------------------
 
@@ -21,6 +23,8 @@ function Doctor() {
   const [searchResults, setSearchResults] = useState([]);
   const [reload, setReload] = useState(true);
   const [alert, setAlert] = useState(0);
+  const [doctorSearch, setDoctorSearch] = useState("");
+
 
   const [newDoctor, setNewDoctor] = useState({
     name: "",
@@ -129,171 +133,178 @@ function Doctor() {
   };
 
   //------------------------------Search Doctor-----------------------------
-  const handleSearch = () => {
-    const filteredDoctor = searchResults.filter((doctor) =>
-      doctor.name.toLowerCase().includes(search.toLowerCase())
-    );
-    setDoctors(filteredDoctor);
+  const handleSearchDoctorByName = () => {
+    getDoctorByName(doctorSearch).then((data) => {
+      setDoctors(data);
+    });
   };
 
   const handleReset = () => {
-    setSearch("");
+    setDoctorSearch("");
     setDoctors(searchResults);
   };
+
+  // const handleReset = () => {
+  //   setDoctorSearch("");
+  //   setDoctors(searchResults);
+  //   getDoctors().then((data) => {
+  //     setDoctors(data);
+  //   })
+  // };
 
   return (
     <>
       {/*--------------------------New Doctor Input Button------------------------ */}
       <div className="container">
-      <div className="doctor-newdoctor">
-        <h1>Doktor Yonetimi</h1>
-        <h3>Doktor Ekleme</h3>
-        <input
-          type="text"
-          placeholder="Adi"
-          name="name"
-          value={newDoctor.name}
-          onChange={handleNewDoctor}
-        />
-        <input
-          type="text"
-          placeholder="Telefon"
-          name="phone"
-          value={newDoctor.phone}
-          onChange={handleNewDoctor}
-        />
-        <input
-          type="text"
-          placeholder="E-mail"
-          name="mail"
-          value={newDoctor.mail}
-          onChange={handleNewDoctor}
-        />
-        <input
-          type="text"
-          placeholder="Adres"
-          name="address"
-          value={newDoctor.address}
-          onChange={handleNewDoctor}
-        />
-        <input
-          type="text"
-          placeholder="Sehir"
-          name="city"
-          value={newDoctor.city}
-          onChange={handleNewDoctor}
-        />
-        <button onClick={handleNewDoctorBtn}>Create</button>
-        {alert === 1 ? (
-          <Alert severity="error">
-            This doctor has already been registered in the system!
-          </Alert>
-        ) : null}
-      </div>
-
-      {/*--------------------------Update Doctor Input Button------------------------ */}
-      <div className="doctor-updatedoctor">
-        <h3>Doktor Güncelleme</h3>
-
-        <input
-          type="text"
-          placeholder="Adi"
-          name="name"
-          value={updateDoctor.name}
-          onChange={handleUpdateDoctorInputs}
-        />
-        <input
-          type="text"
-          placeholder="Telefon"
-          name="phone"
-          value={updateDoctor.phone}
-          onChange={handleUpdateDoctorInputs}
-        />
-        <input
-          type="text"
-          placeholder="E-mail"
-          name="mail"
-          value={updateDoctor.mail}
-          onChange={handleUpdateDoctorInputs}
-        />
-        <input
-          type="text"
-          placeholder="Adres"
-          name="address"
-          value={updateDoctor.address}
-          onChange={handleUpdateDoctorInputs}
-        />
-        <input
-          type="text"
-          placeholder="Sehir"
-          name="city"
-          value={updateDoctor.city}
-          onChange={handleUpdateDoctorInputs}
-        />
-        <button onClick={handleUpdateDoctorBtn}>Update</button>
-        {alert === 2 ? (
-          <Alert severity="error">
-            This doctor has already been registered in the system!
-          </Alert>
-        ) : null}
-      </div>
-
-      {/* ---------------------------Search Customer Input Button------------------------ */}
-      <div className="search-bar">
-        <h3>Doktor Ara</h3>
-        <input
-          type="text"
-          placeholder="doktor giriniz... "
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button className="search-button" onClick={handleSearch}>
-          Search
-        </button>
-        <button className="reset-button" onClick={handleReset}>
-          Show All
-        </button>
-      </div>
-
-      {/* ------------------------------List Doctor ----------------------------- */}
-      <div className="list">
-        <h3>Doktor Listesi</h3>
-
-        <div className="table-container">
-          <table className="table">
-            <thead>
-              <tr>
-              <th>Name Surname</th>
-                <th>Phone</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Email</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {doctors.map((doctor) => (
-                <tr key={doctor.id}>
-                  <td>{doctor.name}</td>
-                  <td>{doctor.phone}</td>
-                  <td>{doctor.address}</td>
-                  <td>{doctor.city}</td>
-                  <td>{doctor.mail}</td>
-                  <td>
-                    <span onClick={() => handleUpdateIcon(doctor)}>
-                      <UpdateIcon />
-                    </span>
-                    <span onClick={() => handleDelete(doctor.id)}>
-                      <DeleteIcon />
-                    </span>{" "}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="doctor-newdoctor">
+          <h1>Doctor Management</h1>
+          <h3>Add Doctor</h3>
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            value={newDoctor.name}
+            onChange={handleNewDoctor}
+          />
+          <input
+            type="text"
+            placeholder="Phone"
+            name="phone"
+            value={newDoctor.phone}
+            onChange={handleNewDoctor}
+          />
+          <input
+            type="text"
+            placeholder="Email"
+            name="mail"
+            value={newDoctor.mail}
+            onChange={handleNewDoctor}
+          />
+          <input
+            type="text"
+            placeholder="Address"
+            name="address"
+            value={newDoctor.address}
+            onChange={handleNewDoctor}
+          />
+          <input
+            type="text"
+            placeholder="City"
+            name="city"
+            value={newDoctor.city}
+            onChange={handleNewDoctor}
+          />
+          <button onClick={handleNewDoctorBtn}>Create</button>
+          {alert === 1 ? (
+            <Alert severity="error">
+              This doctor has already been registered in the system!
+            </Alert>
+          ) : null}
         </div>
-      </div>
-      <Outlet />
+
+        {/*--------------------------Update Doctor Input Button------------------------ */}
+        <div className="doctor-updatedoctor">
+          <h3>Update Doctor</h3>
+
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            value={updateDoctor.name}
+            onChange={handleUpdateDoctorInputs}
+          />
+          <input
+            type="text"
+            placeholder="Phone"
+            name="phone"
+            value={updateDoctor.phone}
+            onChange={handleUpdateDoctorInputs}
+          />
+          <input
+            type="text"
+            placeholder="Email"
+            name="mail"
+            value={updateDoctor.mail}
+            onChange={handleUpdateDoctorInputs}
+          />
+          <input
+            type="text"
+            placeholder="Address"
+            name="address"
+            value={updateDoctor.address}
+            onChange={handleUpdateDoctorInputs}
+          />
+          <input
+            type="text"
+            placeholder="City"
+            name="city"
+            value={updateDoctor.city}
+            onChange={handleUpdateDoctorInputs}
+          />
+          <button onClick={handleUpdateDoctorBtn}>Update</button>
+          {alert === 2 ? (
+            <Alert severity="error">
+              This doctor has already been registered in the system!
+            </Alert>
+          ) : null}
+        </div>
+
+        {/* ---------------------------Search Customer Input Button------------------------ */}
+        <div className="search-bar">
+          <h3>Search Doctor</h3>
+          <input
+            type="text"
+            placeholder="Enter doctor... "
+            value={doctorSearch}
+            onChange={(e) => setDoctorSearch(e.target.value)}
+          />
+          <button className="search-button" onClick={handleSearchDoctorByName}>
+            Search
+          </button>
+          <button className="reset-button" onClick={handleReset}>
+            Show All
+          </button>
+        </div>
+
+        {/* ------------------------------List Doctor ----------------------------- */}
+        <div className="list">
+          <h3>Doctor List</h3>
+
+          <div className="table-container">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Name Surname</th>
+                  <th>Phone</th>
+                  <th>Address</th>
+                  <th>City</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {doctors.map((doctor) => (
+                  <tr key={doctor.id}>
+                    <td>{doctor.name}</td>
+                    <td>{doctor.phone}</td>
+                    <td>{doctor.address}</td>
+                    <td>{doctor.city}</td>
+                    <td>{doctor.mail}</td>
+                    <td>
+                      <span onClick={() => handleUpdateIcon(doctor)}>
+                        <UpdateIcon />
+                      </span>
+                      <span onClick={() => handleDelete(doctor.id)}>
+                        <DeleteIcon />
+                      </span>{" "}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <Outlet />
       </div>
     </>
   );

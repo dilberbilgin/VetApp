@@ -30,7 +30,7 @@ export const updateAppointmentFunc = async (appointment) => {
   return data;
 };
 
-export const getAppointmentByDate = async (startDate, endDate, doctorId) => {
+export const getAppointmentByDateDoctor = async (startDate, endDate, doctorId) => {
   const { data } = await axios.get (
     `${import.meta.env.VITE_APP_BASE_URL}/api/v1/appointments/doctorId?startDate=${startDate}&endDate=${endDate}&doctorId=${doctorId}`
   );

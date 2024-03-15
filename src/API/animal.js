@@ -30,4 +30,25 @@ export const updateAnimalFunc = async (animal) => {
   return data;
 };
 
+export const getAnimalByName = async (name) => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_APP_BASE_URL}/api/v1/animals/byName?name=${name}`
+  );
+   
+  return data;
+};
+//http://localhost:8080/api/v1/animals/byName?name=Diren
+
+
+
+export const getAnimalByCustomerName = async (customerName) => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_APP_BASE_URL}/api/v1/animals/byCustomerName?customerName=${customerName}`
+  );
+   
+  return data;
+};
+
+
+// http://localhost:8080/api/v1/animals/byCustomerName?customerName=Deniz Bilgin
 

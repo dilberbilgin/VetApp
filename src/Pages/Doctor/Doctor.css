@@ -9,24 +9,20 @@ h1, h2, h3, h4 {
   margin-bottom: 5px;
 }
 
-/* h1{
-  text-align: center;
-} */
 
 .doctor-newdoctor,
 .doctor-updatedoctor ,
 .search-bar,
 .list {
   
-  background-color: #F5F5F5; 
+  background-color: #F5F5F5;
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px;
+  margin-bottom: 0px;
 }
 
-h1, h2, h3{
-  color: #363062; 
-  margin-bottom: 5px;
-}
+
+
 
 .doctor-newdoctor input,
 .doctor-updatedoctor input, 
@@ -34,7 +30,7 @@ h1, h2, h3{
   
   padding: 8px;
   border: 1px solid #4d4c7d32;  
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  */
   border-radius: 5px;
   color: #363062;
  

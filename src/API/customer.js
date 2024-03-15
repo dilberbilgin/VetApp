@@ -30,5 +30,15 @@ export const updateCustomerFunc = async (customer) => {
 };
 
 
+export const getCustomerByName = async (name) => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_APP_BASE_URL}/api/v1/customers/byName?name=${name}`
+  );
+   
+  return data;
+};
+//http://localhost:8080/api/v1/customers/byName?name=Deniz Bilgin
+
+
 
 

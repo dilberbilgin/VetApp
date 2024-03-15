@@ -1,11 +1,16 @@
 
-
-.h1{
-  text-align: center;
-  padding: 1rem;
-  margin-top: 10px;
-
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
+
+h1, h2, h3, h4 {
+  color: #363062;
+  margin-bottom: 5px;
+}
+
+
 
 .report-newreport,
 .report-updatereport, 
@@ -19,10 +24,7 @@
   
 }
 
-h1, h2, h3, h4{
-  color: #363062; 
-  margin-bottom: 5px;
-}
+
 
 
 .report-newreport input,
@@ -31,7 +33,7 @@ h1, h2, h3, h4{
 
   padding: 8px;
   border: 1px solid #4d4c7d32;  
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  */
   border-radius: 5px;
   color: #363062;
 }
@@ -43,6 +45,17 @@ h1, h2, h3, h4{
   padding: 2px;
 }
 
+.report-newreport select,
+.report-updatereport select,
+.search-bar select {
+  padding: 8px;
+  border: 1px solid #4d4c7d32;
+  border-radius: 5px;
+  color: #363062;
+  width: 20%;
+  margin-bottom: 10px;
+}
+
 .report-newreport button,
 .report-updatereport button,
 .search-bar button {
@@ -52,6 +65,22 @@ h1, h2, h3, h4{
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.reset{
+  padding: 10px 20px;
+  background-color: #F99417; 
+  color: #fff; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom:20px
+
+}
+
+.reset:hover {
+  background-color: #FFD166;
+  transition: background-color 0.3s ease;
 }
 
 .report-newreport button:hover,
@@ -84,8 +113,6 @@ h1, h2, h3, h4{
 }
 
 
-
-/* -------------------------------- */
 .table-container {
   max-width: 100%;
   margin: auto;
@@ -102,10 +129,6 @@ table td {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #dddddd75;
-  text-decoration: underline;
-  text-decoration-color: #36306237;
-  color: #363062;
-  
 }
 
 table th {

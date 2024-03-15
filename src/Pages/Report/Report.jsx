@@ -160,15 +160,21 @@ function Report() {
         setReports(filteredReport);
         setSearch("");
       };
+
+      const handleReset = () => {
+        setSearch("");
+        setReports(searchResults);
+      };
   
  
 
   return (
-    <>
+    <div className="container">
     {/*--------------------------New Report Input Button------------------------ */}
-    <h1>Rapor Yonetimi</h1>
+    
       <div className="report-newreport">
-        <h3>Rapor Ekleme</h3>
+      <h1>Report Management</h1>
+        <h3>Add Report</h3>
         <input
           type="text"
           placeholder="title"
@@ -193,7 +199,7 @@ function Report() {
 
         <select value={newReport.appointment.id} name="appointment" onChange={handleNewReport}>
           <option value="" disabled={true} selected={true}>
-            randevu seciniz
+            Select appointment
           </option>
           {appointments.map((appointment) => {
             return (
@@ -214,7 +220,7 @@ function Report() {
 
           {/*--------------------------Update Appointment Input Button------------------------ */}
       <div className="report-updatereport">
-        <h3>Rapor Güncelleme</h3>
+        <h3>Update Report</h3>
 
         <input
           type="text"
@@ -242,7 +248,7 @@ function Report() {
 
         <select name="appointment" onChange={handleUpdateReportInputs}>
           <option value="" disabled={true} selected={true}>
-            randevu seciniz
+            Select appointment
           </option>
           {appointments.map((appointment) => {
             return <option value={appointment.id}>{appointment.appointmentDate}</option>;
@@ -261,16 +267,17 @@ function Report() {
       {/* ---------------------------Search Report Input Button------------------------ */}
 
       <div className="search-bar">
-      <h3>Rapor Ara</h3>
+      <h3>Search Report</h3>
 
       <input
           type="text"
-          placeholder="isim giriniz... "
+          placeholder="Enter name... "
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
 
         <button onClick={handleSearch}>Search</button>
+        <button className="reset" onClick={handleReset}>Show All</button>
       </div>
 
    
@@ -278,20 +285,20 @@ function Report() {
     
           {/* ---------------------------List Report------------------------ */}
       <div className="list">
-        <h3>Rapor Listesi</h3>
+        <h3>Report List</h3>
 
         <div className="table-container">
           <table className="table">
             <thead>
               <tr>
-                <th>Rapor Basligi</th>
-                <th>Hayvan Adi</th>
-                <th>Tani</th>
-                <th>Doktor Adi</th>
-                <th>Musteri</th>
-                <th>Asi Listesi</th>
-                <th>Fiyat</th>
-                <th>Islemler</th>
+              <th>Report Title</th>
+          <th>Animal Name</th>
+          <th>Diagnosis</th>
+          <th>Doctor Name</th>
+          <th>Customer</th>
+          <th>Vaccine List</th>
+          <th>Price</th>
+          <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -325,41 +332,11 @@ function Report() {
         </div>
 
         </div>
-    </>
+    </div>
   );
 }
 
 export default Report;
 
 
-        {/* {reports.map((report) => (
-          <div className="reports" key={report.id}>
-            <h3>
-              {report.id} - {report.title} - {report.doctorName}
-              <span id={report.id} onClick={() => handleDelete(report.id)}>
-                <DeleteIcon />
-              </span>{" "}
-              <span onClick={() => handleUpdateIcon(report)}>
-                {" "}
-                <UpdateIcon />{" "}
-              </span>
-            </h3>{" "}
-            {report.animalName} - {report.diagnosis} 
-            Asi Listesi : {report.vaccineList?.map((vaccineLists) => (
-              <div key={vaccineLists.name}>
-                {vaccineLists.name}
-                </div>
-            ))}
-          </div> 
-        ))} */}
-
-
-
-
-
-      {/* </div>
-    </>
-  );
-}
-
-export default Report; */}
+        

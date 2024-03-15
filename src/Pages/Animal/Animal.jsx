@@ -9,9 +9,11 @@ import {
   deleteAnimal,
   createAnimal,
   updateAnimalFunc,
+  getAnimalByName,
 } from "../../API/animal";
 import "./Animal.css";
 import { getCustomers } from "../../API/customer";
+import { getAnimalByCustomerName } from "../../API/animal";
 
 //------------------------------Use State-----------------------------
 
@@ -22,6 +24,7 @@ function Animal() {
   const [customers, setCustomers] = useState([]);
   const [reload, setReload] = useState(true);
   const [alert, setAlert] = useState(0);
+  const [customerSearch, setCustomerSearch] = useState("");
 
   const [newAnimal, setNewAnimal] = useState({
     name: "",
@@ -146,11 +149,6 @@ function Animal() {
       });
   };
 
-  // const handleUpdateIcon = (animal) => {
-  //   console.log(animal);
-  //   setUpdateDoctor(animal);
-  // };
-
   const handleUpdateIcon = (animal) => {
     setUpdateAnimal({
       name: animal.name,
@@ -165,31 +163,37 @@ function Animal() {
   };
 
   //------------------------------Search Animal-----------------------------
-  const handleSearch = () => {
-    const filteredAnimal = searchResults.filter((animal) =>
-      animal.name.toLowerCase().includes(search.toLowerCase())
-    );
-    setAnimals(filteredAnimal);
+  const handleSearchAnimalByName = () => {
+    getAnimalByName(search).then((data) => {
+      setAnimals(data);
+    });  
   };
+
+  // const handleSearchAnimalByCustomerName = () => {
+  //   const filteredAnimal = searchResults.filter((animal) =>
+  //     animal.customer.name.toLowerCase().includes(search.toLowerCase())
+  //   );
+  //   setAnimals(filteredAnimal);
+  // };
 
   const handleSearchAnimalByCustomerName = () => {
-    const filteredAnimal = searchResults.filter((animal) =>
-      animal.customer.name.toLowerCase().includes(search.toLowerCase())
-    );
-    setAnimals(filteredAnimal);
-  };
-
+    getAnimalByCustomerName(customerSearch).then((data) => {
+      setAnimals(data);
+      console.log(data)
+    });
+  }
   const handleReset = () => {
     setSearch("");
+    setCustomerSearch("");
     setAnimals(searchResults);
   };
 
   return (
-    <>
+    <div className="container">
       {/*--------------------------New Animal Input Button------------------------ */}
       <div className="animal-newanimal">
-        <h1>Hayvan Yonetimi</h1>
-        <h3>Hayvan Ekleme</h3>
+        <h1>Animal Management</h1>
+        <h3>Add Animal</h3>
         <input
           type="text"
           placeholder="Name"
@@ -235,7 +239,7 @@ function Animal() {
 
         <select name="customer" onChange={handleNewAnimal}>
           <option value="" disabled={true} selected={true}>
-            customer seciniz
+            Select customer
           </option>
           {customers.map((customer) => {
             return <option value={customer.id}>{customer.name}</option>;
@@ -252,7 +256,7 @@ function Animal() {
 
       {/*--------------------------Update Animal Input Button------------------------ */}
       <div className="animal-updateanimal">
-        <h3>Hayvan Güncelleme</h3>
+        <h3>Update Animal</h3>
 
         <input
           type="text"
@@ -290,7 +294,7 @@ function Animal() {
           onChange={handleUpdateAnimalInputs}
         />
         <input
-          type="text"
+          type="date"
           placeholder="dateOfBirth"
           name="dateOfBirth"
           value={updateAnimal.dateOfBirth}
@@ -298,7 +302,7 @@ function Animal() {
         />
         <select name="customer" onChange={handleUpdateAnimalInputs}>
           <option value="" disabled={true} selected={true}>
-            customer seciniz
+            Select Customer
           </option>
           {customers.map((customer) => {
             return <option value={customer.id}>{customer.name}</option>;
@@ -317,50 +321,53 @@ function Animal() {
 
       <div className="search-bar-animal">
         <div className="search-bar">
-          <h3>Hayvan Ara</h3>
+          <h3>Search Animal</h3>
           <input
             type="text"
-            placeholder="isim giriniz... "
+            placeholder="Enter animal name... "
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
 
-          <button onClick={handleSearch}>Search</button>
+          <button onClick={handleSearchAnimalByName}>Search</button>
         </div>
 
         <div className="search-bar">
-          <h3>Hayvan Sahibi Ara</h3>
+          <h3>Search Customer</h3>
           <input
             type="text"
-            placeholder="musteri ismi giriniz... "
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Enter customer name... "
+            value={customerSearch}
+            onChange={(e) => setCustomerSearch(e.target.value)}
           />
           <button onClick={handleSearchAnimalByCustomerName}>Search</button>
+          
+          
         </div>
-
-        <div className="reset-animal">
-          <button className="reset" onClick={handleReset}>
-            Tum Listeyi Goster
+        <div className="search-bar-reset">
+          <button className="show-all" onClick={handleReset}>
+            Show All
           </button>
-        </div>
+          </div>
+
+        
       </div>
 
       {/* ------------------------------List Animal ----------------------------- */}
       <div className="list">
-        <h3>Hayvan Listesi</h3>
+        <h3>Animal List</h3>
 
         <div className="table-container">
           <table className="table">
             <thead>
               <tr>
-                <th>Adi</th>
-                <th>Tur</th>
-                <th>Irk</th>
-                <th>Cinsiyet</th>
-                <th>Renk</th>
-                <th>Dogum Tarihi</th>
-                <th>Sahibi</th>
+                <th>Name</th>
+                <th>Species</th>
+                <th>Breed</th>
+                <th>Gender</th>
+                <th>Colour</th>
+                <th>Date of Birth</th>
+                <th>Customer Name</th>
                 <th>Islemler</th>
               </tr>
             </thead>
@@ -389,35 +396,9 @@ function Animal() {
           </table>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
 export default Animal;
 
-{
-  /* {animals.map((animal) => (
-          <div key={animal.id}>
-            <h3>
-              {animal.name} {animal.id}
-              <span id={animal.id} onClick={() => handleDelete(animal.id)}>
-                <DeleteIcon />
-              </span>{" "}
-              <span onClick={() => handleUpdateIcon(animal)}>
-                {" "}
-                <UpdateIcon />{" "}
-              </span>
-            </h3>{" "}
-            {animal.breed}
-          </div>
-        ))} */
-}
-
-{
-  /* </div>
-    </>
-  );
-}
-
-export default Animal; */
-}

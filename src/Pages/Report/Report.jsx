@@ -298,6 +298,7 @@ function Report() {
           <th>Customer</th>
           <th>Vaccine List</th>
           <th>Price</th>
+          <th>Appointment Date</th>
           <th>Actions</th>
               </tr>
             </thead>
@@ -316,6 +317,7 @@ function Report() {
                    
                   
                   <td>{report.price}</td>
+                  <td>{report.appointment.appointmentDate}</td>
               
                   <td>
                     <span onClick={() => handleUpdateIcon(report)}>

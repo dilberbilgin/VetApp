@@ -30,6 +30,26 @@ export const updateVaccineFunc = async (vaccine) => {
   return data;
 };
 
+export const getVaccineByName = async (name) => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_APP_BASE_URL}/api/v1/vaccines/byName?name=${name}`
+  );
+   
+  return data;
+};
+//http://localhost:8080/api/v1/vaccines/byName?name=Kuduz
+
+
+export const getVaccineByAnimalName = async (animalName) => {
+  const { data } = await axios.get(
+    `${import.meta.env.VITE_APP_BASE_URL}/api/v1/vaccines/byAnimalName?animalName=${animalName}`
+  );
+  return data;
+};
+// http://localhost:8080/api/v1/animals/byCustomerName?customerName=Deniz Bilgin
+
+
+
 export const getVaccinesByDate = async (startDate, endDate) => {
 
   const { data } = await
@@ -39,6 +59,7 @@ export const getVaccinesByDate = async (startDate, endDate) => {
     console.log(data);
   return data;
 };
+//http://localhost:8080/api/v1/vaccines/finishDate?startDate=2023-11-08&endDate=2023-12-20
 
 
 

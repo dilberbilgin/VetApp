@@ -15,6 +15,8 @@ import "./Vaccine.css";
 import { getAnimals } from "../../API/animal";
 import { getReports } from "../../API/report";
 import { getVaccinesByDate } from "../../API/vaccine";
+import { getVaccineByName } from "../../API/vaccine";
+import { getVaccineByAnimalName } from "../../API/vaccine";
 
 //------------------------------Use State-----------------------------
 function Vaccine() {
@@ -193,20 +195,32 @@ function Vaccine() {
   };
 
     //------------------------------Search Vaccine-----------------------------
-    const handleSearchByVaccineName = () => {
-      const filteredVaccine = searchResults.filter((vaccine) =>
-      vaccine.name.toLowerCase().includes(nameSearch.toLowerCase())
-      );
-      setVaccines(filteredVaccine);
+    // const handleSearchByVaccineName = () => {
+    //   const filteredVaccine = searchResults.filter((vaccine) =>
+    //   vaccine.name.toLowerCase().includes(nameSearch.toLowerCase())
+    //   );
+    //   setVaccines(filteredVaccine);
       
+    // };
+
+    const handleSearchVaccineByName = () => {
+      getVaccineByName(nameSearch).then((data) => {
+        setVaccines(data);
+      });  
     };
 
-    const handleSearchByAnimal = () => {
-      const filteredVaccine = searchResults.filter((vaccine) =>
-      vaccine.animal.name.toLowerCase().includes(animalSearch.toLowerCase())
-      );
-      setVaccines(filteredVaccine);
-    };
+    // const handleSearchByAnimal = () => {
+    //   const filteredVaccine = searchResults.filter((vaccine) =>
+    //   vaccine.animal.name.toLowerCase().includes(animalSearch.toLowerCase())
+    //   );
+    //   setVaccines(filteredVaccine);
+    // };
+
+    const handleSearchVaccineByAnimalName = () => {
+      getVaccineByAnimalName(animalSearch).then((data) => {
+        setVaccines(data);
+      });
+    }
 
     const handleSearchByDates = () => {
       getVaccinesByDate(startDate, endDate).then((data) => {
@@ -361,7 +375,7 @@ function Vaccine() {
           value={nameSearch}
           onChange={(e) => setNameSearch(e.target.value)}
         />
-        <button onClick={handleSearchByVaccineName}>Search</button>
+        <button onClick={handleSearchVaccineByName}>Search</button>
       </div>
 
 
@@ -373,7 +387,7 @@ function Vaccine() {
           value={animalSearch}
           onChange={(e) => setAnimalSearch(e.target.value)}
         />
-        <button onClick={handleSearchByAnimal}>Search</button>
+        <button onClick={handleSearchVaccineByAnimalName}>Search</button>
       </div>
 
 
@@ -385,7 +399,7 @@ function Vaccine() {
           onChange={(e) => setStartDate(e.target.value)}
         />
         <input
-          type="date"
+          type="date" 
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
         />

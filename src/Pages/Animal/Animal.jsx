@@ -44,6 +44,7 @@ function Animal() {
     colour: "",
     dateOfBirth: "",
     customer: "",
+    id: "",
   });
 
   //------------------------------Use Effect-----------------------------
@@ -54,7 +55,6 @@ function Animal() {
     });
     getCustomers().then((data) => {
       setCustomers(data);
-      console.log(data);
     });
     setReload(false);
   }, [reload]);
@@ -75,13 +75,11 @@ function Animal() {
         [event.target.name]: event.target.value,
       });
     }
-    console.log(newAnimal);
   };
 
   const handleNewAnimalBtn = () => {
     createAnimal(newAnimal)
       .then(() => {
-        console.log(newAnimal);
         setReload(true);
         setNewAnimal({
           name: "",
@@ -139,6 +137,7 @@ function Animal() {
           colour: "",
           dateOfBirth: "", 
           customer: "", 
+          id: "",
         });
       })
       .catch((error) => {

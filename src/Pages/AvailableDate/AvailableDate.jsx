@@ -217,7 +217,7 @@ function AvailableDate() {
         <div className="availabledate-updateavailabledate">
           <h3 className="available-h3">Update Available Date</h3>
 
-          <select
+          {/* <select
             value={updateAvailableDate.doctor.id}
             name="doctor"
             onChange={handleUpdateAvailableDateInputs}
@@ -228,7 +228,15 @@ function AvailableDate() {
             {doctors.map((doctor) => {
               return <option value={doctor.id}>{doctor.name}</option>;
             })}
-          </select>
+          </select> */}
+
+          <input
+    type="text"
+    placeholder="Selected doctor"
+    name="selectedDoctor"
+    value={updateAvailableDate.doctor.name}
+    readOnly 
+  />
 
           <input
             type="date"
@@ -237,6 +245,7 @@ function AvailableDate() {
             value={updateAvailableDate.availableDate}
             onChange={handleUpdateAvailableDateInputs}
           />
+
 
           <button onClick={handleUpdateAvailableDateBtn}>Update</button>
           {alert === 2 ? (

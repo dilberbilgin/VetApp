@@ -222,7 +222,7 @@ function AvailableDate() {
             name="doctor"
             onChange={handleUpdateAvailableDateInputs}
           >
-            <option value="" disabled={true} dilberkrkt@gmail.com >
+            <option value="" disabled={true} selected={true} >
               Selected doctor
             </option>
             {doctors.map((doctor) => {

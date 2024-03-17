@@ -119,6 +119,7 @@ function AvailableDate() {
           availableDate: "",
           doctor: {
             id: "",
+            name:"",
           },
         });
       })

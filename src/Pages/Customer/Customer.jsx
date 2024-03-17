@@ -237,7 +237,7 @@ function Customer() {
         <button onClick={handleUpdateCustomerBtn}>Update</button>
         {alert === 2 ? (
           <Alert severity="error">
-            This customer has already been registered in the system!
+            Please select a customer!
           </Alert>
         ) : null}
       </div>

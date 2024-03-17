@@ -231,12 +231,13 @@ function AvailableDate() {
           </select> */}
 
           <input
-    type="text"
-    placeholder="Selected doctor"
-    name="selectedDoctor"
-    value={updateAvailableDate.doctor.name}
-    readOnly 
-  />
+            type="text"
+            placeholder="Selected doctor"
+            name="selectedDoctor"
+            value={updateAvailableDate.doctor.name}
+            readOnly
+            onChange={handleUpdateAvailableDateInputs}
+          />
 
           <input
             type="date"
@@ -245,7 +246,6 @@ function AvailableDate() {
             value={updateAvailableDate.availableDate}
             onChange={handleUpdateAvailableDateInputs}
           />
-
 
           <button onClick={handleUpdateAvailableDateBtn}>Update</button>
           {alert === 2 ? (
@@ -278,7 +278,6 @@ function AvailableDate() {
           <button className="reset" onClick={handleReset}>
             Show All
           </button>
-
         </div>
       </div>
 

@@ -197,7 +197,7 @@ function Doctor() {
           <button onClick={handleNewDoctorBtn}>Create</button>
           {alert === 1 ? (
             <Alert severity="error">
-              This doctor has already been registered in the system!
+              Please review the information and try again!
             </Alert>
           ) : null}
         </div>
@@ -208,7 +208,7 @@ function Doctor() {
 
           <input
             type="text"
-            placeholder="Name"
+            placeholder="Name Surname"
             name="name"
             value={updateDoctor.name}
             onChange={handleUpdateDoctorInputs}

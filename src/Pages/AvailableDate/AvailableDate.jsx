@@ -222,8 +222,8 @@ function AvailableDate() {
             name="doctor"
             onChange={handleUpdateAvailableDateInputs}
           >
-            <option value="" disabled={true} selected={true}>
-              Select doctor
+            <option value="" disabled={true} >
+              Selected doctor
             </option>
             {doctors.map((doctor) => {
               return <option value={doctor.id}>{doctor.name}</option>;
@@ -269,6 +269,7 @@ function AvailableDate() {
           <button className="reset" onClick={handleReset}>
             Show All
           </button>
+
         </div>
       </div>
 

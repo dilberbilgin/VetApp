@@ -88,7 +88,9 @@ function Animal() {
           gender: "",
           colour: "",
           dateOfBirth: "",
-          customer:"",
+          customer: {
+            id: "",
+          },
         });
       })
       .catch((error) => {
@@ -135,15 +137,15 @@ function Animal() {
           breed: "",
           gender: "",
           colour: "",
-          dateOfBirth: "", 
-          customer: "", 
+          dateOfBirth: "",
+          customer: "",
           id: "",
         });
       })
       .catch((error) => {
         setAlert(2);
         setTimeout(() => {
-          setAlert(0); 
+          setAlert(0);
         }, 3000);
       });
   };
@@ -165,7 +167,7 @@ function Animal() {
   const handleSearchAnimalByName = () => {
     getAnimalByName(search).then((data) => {
       setAnimals(data);
-    });  
+    });
   };
 
   // const handleSearchAnimalByCustomerName = () => {
@@ -178,9 +180,9 @@ function Animal() {
   const handleSearchAnimalByCustomerName = () => {
     getAnimalByCustomerName(customerSearch).then((data) => {
       setAnimals(data);
-      console.log(data)
+      console.log(data);
     });
-  }
+  };
   const handleReset = () => {
     setSearch("");
     setCustomerSearch("");
@@ -236,7 +238,11 @@ function Animal() {
           onChange={handleNewAnimal}
         />
 
-        <select name="customer" onChange={handleNewAnimal}>
+        <select
+          value={newAvailableCustomer.customer.id}
+          name="customer"
+          onChange={handleNewAnimal}
+        >
           <option value="" disabled={true} selected={true}>
             Select customer
           </option>
@@ -340,16 +346,12 @@ function Animal() {
             onChange={(e) => setCustomerSearch(e.target.value)}
           />
           <button onClick={handleSearchAnimalByCustomerName}>Search</button>
-          
-          
         </div>
         <div className="search-bar-reset">
           <button className="show-all" onClick={handleReset}>
             Show All
           </button>
-          </div>
-
-        
+        </div>
       </div>
 
       {/* ------------------------------List Animal ----------------------------- */}
@@ -400,4 +402,3 @@ function Animal() {
 }
 
 export default Animal;
-

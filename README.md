@@ -53,8 +53,8 @@ Proje beckend kısmı Render platformu üzerinde deploy edilmiştir.
 Frontend kısmı Netlify platformu üzerinde deploy edilmiştir. 
 Canlı projeye asagidaki linklerden erişebilirsiniz.
 
-_**Netlify :** [VetApp-Frontend](https://genuine-meerkat-2e3afd.netlify.app)_
-_**Render :** [VeterineryApp-Backend](https://veterinaryapp-backend.onrender.com)_
+* _**Netlify :** [VetApp-Frontend](https://genuine-meerkat-2e3afd.netlify.app)_
+* _**Render :** [VeterineryApp-Backend](https://veterinaryapp-backend.onrender.com)_
 
 _Backend Projenin Github Linki: _[VeterineryApp](https://github.com/dilberkorkut/VeterinaryApp)__
 

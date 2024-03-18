@@ -56,7 +56,7 @@ Canlı projeye asagidaki linklerden erişebilirsiniz.
 * _**Netlify :** [VetApp-Frontend](https://genuine-meerkat-2e3afd.netlify.app)_
 * _**Render :** [VeterineryApp-Backend](https://veterinaryapp-backend.onrender.com)_
 
-_Backend Projenin Github Linki: _[VeterineryApp](https://github.com/dilberkorkut/VeterinaryApp)__
+* _Backend Projenin Github Linki: _[VeterineryApp](https://github.com/dilberkorkut/VeterinaryApp)__
 
 
 

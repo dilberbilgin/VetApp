@@ -236,7 +236,7 @@ function Animal() {
           onChange={handleNewAnimal}
         />
 
-        <select name="customer" onChange={handleNewAnimal}>
+        <select value={newAnimal.customer.id} name="customer" onChange={handleNewAnimal}>
           <option value="" disabled={true} selected={true}>
             Select customer
           </option>
@@ -299,7 +299,7 @@ function Animal() {
           value={updateAnimal.dateOfBirth}
           onChange={handleUpdateAnimalInputs}
         />
-        <select name="customer" onChange={handleUpdateAnimalInputs}>
+        <select value={updateAnimal.customer.id} name="customer" onChange={handleUpdateAnimalInputs}>
           <option value="" disabled={true} selected={true}>
             Select Customer
           </option>

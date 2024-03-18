@@ -88,10 +88,7 @@ function Animal() {
           gender: "",
           colour: "",
           dateOfBirth: "",
-          customer: {
-            id:"",
-            name:"",
-          },
+          customer:"",
         });
       })
       .catch((error) => {
@@ -251,7 +248,7 @@ function Animal() {
         <button onClick={handleNewAnimalBtn}>Create</button>
         {alert === 1 ? (
           <Alert severity="error">
-            This animal has already been registered in the system!
+            Please review the information and try again!
           </Alert>
         ) : null}
       </div>

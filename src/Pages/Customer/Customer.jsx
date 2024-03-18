@@ -74,7 +74,6 @@ function Customer() {
         }, 3000);
       });
   };
-
   console.log(customers);
 
   //------------------------------Delete Customer-----------------------------

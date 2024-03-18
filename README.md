@@ -9,29 +9,29 @@ Veteriner Yönetim Sistemi Full Stack Projesi, hayvan sahipleri, hayvanlar, dokt
 Projenin **Backend** kısmı, 
 Spring Boot ile geliştirilmiş bir REST API projesidir. API, hayvan sahipleri, doktorlar, randevular, aşılar ve raporlar gibi temel veri kayıtlarını yönetmek için kullanılabilir. Ayrıca, PostgreSQL veritabanı kullanılarak verilerin depolanması sağlanmıştır. Backend projesi, aşağıdaki teknolojileri kullanmaktadır:
 
-  Java 17
-  Spring Boot
-  Spring Web
-  Spring Data JPA
-  PostgreSQL
-  Lombok
-  Mapstruct
-  Postman
-  Swagger
+  - Java 17
+  - Spring Boot
+  - Spring Web
+  - Spring Data JPA
+  - PostgreSQL
+  - Lombok
+  - Mapstruct
+  - Postman
+  - Swagger
 
 
 **Frontend** kısmı, 
 React.js kullanılarak geliştirilmiştir. Kullanıcı arayüzü, veteriner yönetim sisteminin temel işlevlerini sunar. Sayfalar arası gezinme için React Router kullanılmıştır. Frontend projesi, aşağıdaki teknolojileri içermektedir:
 
-React
-Vite
-React Router
-Material-UI
-Axios
+- React
+- Vite
+- React Router
+- Material-UI
+- Axios
 
 **Proje Geliştirme Ortamları ;**
-Intellij Idea
-Visual Studio Code
+- Intellij Idea
+- Visual Studio Code
 
 
 

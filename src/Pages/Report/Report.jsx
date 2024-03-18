@@ -213,7 +213,7 @@ function Report() {
         <button onClick={handleNewReportBtn}>Create</button>
         {alert === 1 ? (
           <Alert severity="error">
-            This report with this appointment has already been registered in the system!
+            Please review the information and try again!
           </Alert>
         ):null}
       </div>

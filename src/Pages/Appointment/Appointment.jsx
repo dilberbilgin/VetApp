@@ -87,7 +87,6 @@ function Appointment() {
   const handleNewAppointmentBtn = () => {
     createAppointment(newAppointment)
       .then(() => {
-        console.log(newAppointment);
         setReload(true);
         setNewAppointment({
           appointmentDate: "",
@@ -145,8 +144,9 @@ function Appointment() {
         setReload(true);
         setUpdateAppointment({
           appointmentDate: "",
-          doctor: "",
-          animal: "",
+          doctor: {
+            id: "",
+          },
         });
       })
       .catch((error) => {

@@ -88,8 +88,10 @@ function Animal() {
           gender: "",
           colour: "",
           dateOfBirth: "",
-          customer:"",
-          id: "",
+          customer: {
+            id:"",
+          },
+          
         });
       })
       .catch((error) => {
@@ -137,7 +139,9 @@ function Animal() {
           gender: "",
           colour: "",
           dateOfBirth: "", 
-          customer: "", 
+          customer: {
+            id:"",
+          }, 
           id: "",
         });
       })

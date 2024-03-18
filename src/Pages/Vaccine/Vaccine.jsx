@@ -296,7 +296,7 @@ function Vaccine() {
         <button onClick={handleNewVaccineBtn}>Create</button>
         {alert === 1 ? (
           <Alert severity="error">
-            The vaccine protection is still active, you cannot add a new vaccine.
+            Please review the information and try again!
           </Alert>
         ):null}
       </div>
@@ -358,7 +358,7 @@ function Vaccine() {
         <button onClick={handleUpdateVaccineBtn}>Update</button>
         {alert === 2 ? (
           <Alert severity="error">
-            "Another vaccine with the same name and code already exists in the system!"
+            Please select a report!
           </Alert>
         ):null}
       </div>

@@ -253,7 +253,7 @@ function Animal() {
         <button onClick={handleNewAnimalBtn}>Create</button>
         {alert === 1 ? (
           <Alert severity="error">
-            This animal has already been registered in the system!
+            Please review the information and try again!
           </Alert>
         ) : null}
       </div>
@@ -316,7 +316,7 @@ function Animal() {
         <button onClick={handleUpdateAnimalBtn}>Update</button>
         {alert === 2 ? (
           <Alert severity="error">
-            This animal has already been registered in the system!
+            Please select an animal!
           </Alert>
         ) : null}
       </div>

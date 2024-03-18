@@ -267,7 +267,7 @@ function Appointment() {
         <button onClick={handleNewAppointmentBtn}>Create</button>
         {alert === 1 ? (
           <Alert severity="error">
-            "The doctor is not available for today. Please choose a new date."
+             Please review the information and try again!
           </Alert>
         ) : null}
       </div>
@@ -313,7 +313,7 @@ function Appointment() {
         <button onClick={handleUpdateAppointmentBtn}>Update</button>
         {alert === 2 ? (
           <Alert severity="error">
-            An appointment has already been scheduled for this date!
+            Please select an appointment!
           </Alert>
         ) : null}
       </div>

@@ -258,7 +258,7 @@ function Report() {
         <button onClick={handleUpdateReportBtn}>Update</button>
         {alert === 2 ? (
           <Alert severity="error">
-            This report has already been registered in the system!
+            Please select a report!
           </Alert>
         ):null}
 

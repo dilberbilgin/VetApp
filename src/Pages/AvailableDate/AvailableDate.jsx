@@ -210,7 +210,7 @@ function AvailableDate() {
 
           <button onClick={handleNewAvailableDateBtn}>Create</button>
           {alert === 1 ? (
-            <Alert severity="error">This date is not available!</Alert>
+            <Alert severity="error">Please review the information and try again!</Alert>
           ) : null}
         </div>
 
@@ -251,7 +251,7 @@ function AvailableDate() {
           <button onClick={handleUpdateAvailableDateBtn}>Update</button>
           {alert === 2 ? (
             <Alert severity="error">
-              This date has already been registered in the system!
+              "Please select an available date!"
             </Alert>
           ) : null}
         </div>

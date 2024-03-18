@@ -201,7 +201,7 @@ function Customer() {
 
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Name Surname"
           name="name"
           value={updateCustomer.name}
           onChange={handleUpdateCustomerInputs}

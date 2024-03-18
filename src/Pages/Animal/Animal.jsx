@@ -88,7 +88,10 @@ function Animal() {
           gender: "",
           colour: "",
           dateOfBirth: "",
-          customer: "",
+          customer: {
+            id:"",
+            name:"",
+          },
         });
       })
       .catch((error) => {

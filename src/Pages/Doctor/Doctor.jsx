@@ -161,7 +161,7 @@ function Doctor() {
           <h3>Add Doctor</h3>
           <input
             type="text"
-            placeholder="Name"
+            placeholder="Name Surname"
             name="name"
             value={newDoctor.name}
             onChange={handleNewDoctor}

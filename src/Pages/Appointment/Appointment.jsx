@@ -16,7 +16,6 @@ import "./Appointment.css";
 import { getDoctors } from "../../API/doctor";
 import { getAnimals } from "../../API/animal";
 
-
 //------------------------------Use State-----------------------------
 function Appointment() {
   const [appointments, setAppointments] = useState([]);
@@ -86,24 +85,26 @@ function Appointment() {
   };
 
   const handleNewAppointmentBtn = () => {
-    createAppointment(newAppointment).then(() => {
-      console.log(newAppointment);
-      setReload(true);
-      setNewAppointment({
-        appointmentDate: "",
-        doctor:{
-          id: "",
-        },
-        animal:{
-          id: "",
-        } 
+    createAppointment(newAppointment)
+      .then(() => {
+        console.log(newAppointment);
+        setReload(true);
+        setNewAppointment({
+          appointmentDate: "",
+          doctor: {
+            id: "",
+          },
+          animal: {
+            id: "",
+          },
+        });
+      })
+      .catch((error) => {
+        setAlert(1);
+        setTimeout(() => {
+          setAlert(0);
+        }, 3000);
       });
-    }).catch((error) => {
-      setAlert(1);
-      setTimeout(() => {
-        setAlert(0);
-      }, 3000);
-    });
   };
 
   //------------------------------Delete Appointment-----------------------------
@@ -139,20 +140,21 @@ function Appointment() {
   };
 
   const handleUpdateAppointmentBtn = () => {
-    updateAppointmentFunc(updateAppointment).then(() => {
-      setReload(true);
-      setUpdateAppointment({
-        appointmentDate: "",
-        doctor:"",
-        animal:"",
+    updateAppointmentFunc(updateAppointment)
+      .then(() => {
+        setReload(true);
+        setUpdateAppointment({
+          appointmentDate: "",
+          doctor: "",
+          animal: "",
+        });
+      })
+      .catch((error) => {
+        setAlert(2);
+        setTimeout(() => {
+          setAlert(0);
+        }, 3000);
       });
-    }).catch((error) => {
-      setAlert(2);
-      setTimeout(() => {
-        setAlert(0); 
-      }, 3000);
-    })
-    
   };
 
   const handleUpdateIcon = (appointment) => {
@@ -164,60 +166,58 @@ function Appointment() {
     });
   };
 
-    //------------------------------Search Appointment-----------------------------
-    //Doctor-Dates
-    const handleSearchDoctorChange = (event) => {
-      setDoctorId(event.target.value)
-      const filteredAppointment = searchResults.filter((appointment) =>
+  //------------------------------Search Appointment-----------------------------
+  //Doctor-Dates
+  const handleSearchDoctorChange = (event) => {
+    setDoctorId(event.target.value);
+    const filteredAppointment = searchResults.filter((appointment) =>
       appointment.appointmentDate.toLowerCase().includes(search.toLowerCase())
-      );
-      setAppointments(filteredAppointment);
-      setSearch("");
-    };
+    );
+    setAppointments(filteredAppointment);
+    setSearch("");
+  };
 
-    const handleDoctorDateSearchBtn = () => {
-      getAppointmentByDateDoctor(startDate, endDate, doctorId).then((data) => {
-        setAppointments(data);
-      });
-    };
+  const handleDoctorDateSearchBtn = () => {
+    getAppointmentByDateDoctor(startDate, endDate, doctorId).then((data) => {
+      setAppointments(data);
+    });
+  };
 
-   //Animal-Dates
-    const handleSearchAnimalChange = (event) => {
-      setAnimalId(event.target.value)
-      const filteredAppointment = searchResults.filter((appointment) =>
+  //Animal-Dates
+  const handleSearchAnimalChange = (event) => {
+    setAnimalId(event.target.value);
+    const filteredAppointment = searchResults.filter((appointment) =>
       appointment.appointmentDate.toLowerCase().includes(search.toLowerCase())
-      );
-      setAppointments(filteredAppointment);
-      setSearch("");
-    };
+    );
+    setAppointments(filteredAppointment);
+    setSearch("");
+  };
 
-    const handleAnimalDateSearchBtn = () => {
-      getAppointmentByDateAnimal(startDate, endDate, animalId).then((data) => {
-        setAppointments(data)
-      });
-    };
+  const handleAnimalDateSearchBtn = () => {
+    getAppointmentByDateAnimal(startDate, endDate, animalId).then((data) => {
+      setAppointments(data);
+    });
+  };
 
+  const handleReset = () => {
+    setSearch("");
+    setDoctorId("");
+    setAnimalId("");
+    setAppointments(searchResults);
+  };
 
-    const handleReset = () => {
-      setSearch("");
-      setDoctorId("");
-      setAnimalId("");
-      setAppointments(searchResults);
-    };
-    
-    // const handleReset = () => {
-    //   setSearch("");
-    //   setStartDate("");
-    //   setEndDate("");
-    //   setDoctorId("");
-    //   setAnimalId("");
-    //   setAppointments(searchResults);
-    // };
-
+  // const handleReset = () => {
+  //   setSearch("");
+  //   setStartDate("");
+  //   setEndDate("");
+  //   setDoctorId("");
+  //   setAnimalId("");
+  //   setAppointments(searchResults);
+  // };
 
   return (
     <div className="container">
-    {/*--------------------------New Appointment Input Button------------------------ */}
+      {/*--------------------------New Appointment Input Button------------------------ */}
       <div className="appointment-newappointment">
         <h1>Appointment Management</h1>
 
@@ -230,21 +230,37 @@ function Appointment() {
           onChange={handleNewAppointment}
         />
 
-        <select value={newAppointment.doctor.id} name="doctor" onChange={handleNewAppointment}>
+        <select
+          value={newAppointment.doctor.id}
+          name="doctor"
+          onChange={handleNewAppointment}
+        >
           <option value="" disabled={true} selected={true}>
-          Select doctor
+            Select doctor
           </option>
           {doctors.map((doctor) => {
-            return <option key={doctor.id} value={doctor.id}>{doctor.name}</option>;
+            return (
+              <option key={doctor.id} value={doctor.id}>
+                {doctor.name}
+              </option>
+            );
           })}
         </select>
 
-        <select value={newAppointment.animal.id} name="animal" onChange={handleNewAppointment}>
+        <select
+          value={newAppointment.animal.id}
+          name="animal"
+          onChange={handleNewAppointment}
+        >
           <option value="" disabled={true} selected={true}>
-          Select animal
+            Select animal
           </option>
           {animals.map((animal) => {
-            return <option key={animal.id} value={animal.id}>{animal.name}</option>;
+            return (
+              <option key={animal.id} value={animal.id}>
+                {animal.name}
+              </option>
+            );
           })}
         </select>
 
@@ -256,7 +272,7 @@ function Appointment() {
         ) : null}
       </div>
 
-    {/*--------------------------Update Appointment Input Button------------------------ */}
+      {/*--------------------------Update Appointment Input Button------------------------ */}
       <div className="appointment-updateappointment">
         <h3>Update Appointment</h3>
 
@@ -268,19 +284,26 @@ function Appointment() {
           onChange={handleUpdateAppointmentInputs}
         />
 
-        <select value={updateAppointment.doctor.id} name="doctor" onChange={handleUpdateAppointmentInputs}>
+        <select
+          value={updateAppointment.doctor.id}
+          name="doctor"
+          onChange={handleUpdateAppointmentInputs}
+        >
           <option value="" disabled={true} selected={true}>
-          Select appointment
+            Select appointment
           </option>
           {doctors.map((doctor) => {
             return <option value={doctor.id}>{doctor.name}</option>;
           })}
         </select>
 
-        <select value={updateAppointment.animal.id} name="animal" onChange={handleUpdateAppointmentInputs}>
+        <select
+          value={updateAppointment.animal.id}
+          name="animal"
+          onChange={handleUpdateAppointmentInputs}
+        >
           <option value="" disabled={true} selected={true}>
-          Select animal
-
+            Select animal
           </option>
           {animals.map((animal) => {
             return <option value={animal.id}>{animal.name}</option>;
@@ -295,76 +318,82 @@ function Appointment() {
         ) : null}
       </div>
 
-
       {/* ---------------------------Search Appointment Input Button------------------------ */}
-<div className="search-bar-appointment">
-<div className="search-bar">
-      <h3>Search Appointment by Doctor and Date</h3>
+      <div className="search-bar-appointment">
+        <div className="search-bar">
+          <h3>Search Appointment by Doctor and Date</h3>
 
-      <select value={doctorId} name="doctor" onChange={handleSearchDoctorChange}>
-          <option value="" disabled={true} selected={true}>
-          Select doctor
-          </option>
-          {doctors.map((doctor) => {
-            return <option value={doctor.id}>{doctor.name}</option>;
-           
-          })}
-        </select>
-        
-        <input
-          type="datetime-local"
-          placeholder="start-date "
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
+          <select
+            value={doctorId}
+            name="doctor"
+            onChange={handleSearchDoctorChange}
+          >
+            <option value="" disabled={true} selected={true}>
+              Select doctor
+            </option>
+            {doctors.map((doctor) => {
+              return <option value={doctor.id}>{doctor.name}</option>;
+            })}
+          </select>
 
-<input
-          type="datetime-local"
-          placeholder="end-date "
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
+          <input
+            type="datetime-local"
+            placeholder="start-date "
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
 
-        <button onClick={handleDoctorDateSearchBtn}>Search</button>
+          <input
+            type="datetime-local"
+            placeholder="end-date "
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+
+          <button onClick={handleDoctorDateSearchBtn}>Search</button>
+        </div>
+
+        {/* -------------------------- */}
+
+        <div className="search-bar">
+          <h3>Search Appointment by Animal Name and Date</h3>
+
+          <select
+            value={animalId}
+            name="animal"
+            onChange={handleSearchAnimalChange}
+          >
+            <option value="" disabled={true} selected={true}>
+              Select animal
+            </option>
+            {animals.map((animal) => {
+              return <option value={animal.id}>{animal.name}</option>;
+            })}
+          </select>
+
+          <input
+            type="datetime-local"
+            placeholder="start-date "
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+
+          <input
+            type="datetime-local"
+            placeholder="end-date "
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+
+          <button onClick={handleAnimalDateSearchBtn}>Search</button>
+        </div>
+
+        <button className="reset" onClick={handleReset}>
+          Show All
+        </button>
       </div>
 
-      {/* -------------------------- */}
-
-      <div className="search-bar">
-      <h3>Search Appointment by Animal Name and Date</h3>
-
-      <select value={animalId} name="animal" onChange={handleSearchAnimalChange}>
-          <option value="" disabled={true} selected={true}>
-          Select animal
-          </option>
-          {animals.map((animal) => {
-            return <option value={animal.id}>{animal.name}</option>;
-     
-          })}
-        </select>
-        
-        <input
-          type="datetime-local"
-          placeholder="start-date "
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-
-<input
-          type="datetime-local"
-          placeholder="end-date "
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-
-        <button onClick={handleAnimalDateSearchBtn}>Search</button>
-      </div>
-    
-    
-      <button className="reset" onClick={handleReset}>Show All</button>
-</div>
-
- {/* ---------------------------List Appointment------------------------ */}
+      {/* ---------------------------List Appointment------------------------ */}
       <div className="list">
         <h3>Randevu Listesi</h3>
 
@@ -372,7 +401,7 @@ function Appointment() {
           <table className="table">
             <thead>
               <tr>
-              <th>Doctor</th>
+                <th>Doctor</th>
                 <th>Appointment Date</th>
                 <th>Animal</th>
                 <th>Customer</th>
@@ -410,4 +439,3 @@ function Appointment() {
 }
 
 export default Appointment;
-

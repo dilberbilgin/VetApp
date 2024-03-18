@@ -89,6 +89,7 @@ function Animal() {
           colour: "",
           dateOfBirth: "",
           customer:"",
+          id: "",
         });
       })
       .catch((error) => {

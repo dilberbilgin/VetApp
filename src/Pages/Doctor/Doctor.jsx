@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
-// import UpdateIcon from "@mui/icons-material/Update";
 import UpdateIcon from "@mui/icons-material/Edit";
 import Alert from "@mui/material/Alert";
 
@@ -14,9 +13,7 @@ import {
 } from "../../API/doctor";
 import "./Doctor.css";
 
-
 //------------------------------Use State-----------------------------
-
 function Doctor() {
   const [doctors, setDoctors] = useState([]);
   const [search, setSearch] = useState("");
@@ -24,7 +21,6 @@ function Doctor() {
   const [reload, setReload] = useState(true);
   const [alert, setAlert] = useState(0);
   const [doctorSearch, setDoctorSearch] = useState("");
-
 
   const [newDoctor, setNewDoctor] = useState({
     name: "",
@@ -76,7 +72,7 @@ function Doctor() {
       .catch((error) => {
         setAlert(1);
         setTimeout(() => {
-          setAlert(0); //ayni mail ise alert!
+          setAlert(0);
         }, 3000);
       });
   };
@@ -111,15 +107,10 @@ function Doctor() {
       .catch((error) => {
         setAlert(2);
         setTimeout(() => {
-          setAlert(0); //ayni mail ise alert!degismesi icin mail adresi degismeli
+          setAlert(0);
         }, 3000);
       });
   };
-
-  // const handleUpdateIcon = (doctor) => {
-  //   console.log(doctor);
-  //   setUpdateDoctor(doctor);
-  // };
 
   const handleUpdateIcon = (doctor) => {
     setUpdateDoctor({
@@ -143,14 +134,6 @@ function Doctor() {
     setDoctorSearch("");
     setDoctors(searchResults);
   };
-
-  // const handleReset = () => {
-  //   setDoctorSearch("");
-  //   setDoctors(searchResults);
-  //   getDoctors().then((data) => {
-  //     setDoctors(data);
-  //   })
-  // };
 
   return (
     <>
@@ -243,9 +226,7 @@ function Doctor() {
           />
           <button onClick={handleUpdateDoctorBtn}>Update</button>
           {alert === 2 ? (
-            <Alert severity="error">
-              Please select doctor!
-            </Alert>
+            <Alert severity="error">Please select doctor!</Alert>
           ) : null}
         </div>
 

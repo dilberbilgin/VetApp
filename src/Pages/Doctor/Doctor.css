@@ -9,31 +9,24 @@ h1, h2, h3, h4 {
   margin-bottom: 5px;
 }
 
-
 .doctor-newdoctor,
 .doctor-updatedoctor ,
 .search-bar,
 .list {
-  
   background-color: #F5F5F5;
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 0px;
 }
 
-
-
-
 .doctor-newdoctor input,
 .doctor-updatedoctor input, 
 .search-bar input{
-  
   padding: 8px;
   border: 1px solid #4d4c7d32;  
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  */
   border-radius: 5px;
   color: #363062;
- 
 }
 
 ::placeholder {
@@ -57,20 +50,6 @@ h1, h2, h3, h4 {
   background-color: #F17C16; 
 }
 
-/* .reset-doctor{
-  padding: 10px 20px;
-  background-color: #EF476F;
-  color: #fff; 
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-}
-
-.reset-doctor:hover {
-  background-color: #FFD166;
-} */
-
 .list {
   margin-top: 15px;
   max-width: 100%;
@@ -85,7 +64,6 @@ h1, h2, h3, h4 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
-
 .list div span {
   cursor: pointer;
 }
@@ -93,7 +71,6 @@ h1, h2, h3, h4 {
 .list div span:hover {
   color: #76ABAE; 
 }
-
 
 /* -------------------------------- */
 .table-container {
@@ -120,7 +97,6 @@ table td {
 table th {
   background-color: #36306237;
   color: #363062e3;
-  
 }
 
 

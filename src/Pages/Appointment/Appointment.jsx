@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-// import UpdateIcon from "@mui/icons-material/Update";
 import UpdateIcon from "@mui/icons-material/Edit";
 import Alert from "@mui/material/Alert";
 
@@ -206,15 +205,6 @@ function Appointment() {
     setAppointments(searchResults);
   };
 
-  // const handleReset = () => {
-  //   setSearch("");
-  //   setStartDate("");
-  //   setEndDate("");
-  //   setDoctorId("");
-  //   setAnimalId("");
-  //   setAppointments(searchResults);
-  // };
-
   return (
     <div className="container">
       {/*--------------------------New Appointment Input Button------------------------ */}
@@ -267,7 +257,7 @@ function Appointment() {
         <button onClick={handleNewAppointmentBtn}>Create</button>
         {alert === 1 ? (
           <Alert severity="error">
-             Please review the information and try again!
+            Please review the information and try again!
           </Alert>
         ) : null}
       </div>
@@ -312,9 +302,7 @@ function Appointment() {
 
         <button onClick={handleUpdateAppointmentBtn}>Update</button>
         {alert === 2 ? (
-          <Alert severity="error">
-            Please select an appointment!
-          </Alert>
+          <Alert severity="error">Please select an appointment!</Alert>
         ) : null}
       </div>
 
@@ -419,7 +407,6 @@ function Appointment() {
                   <td>{appointment.animal.customer.name}</td>
                   <td>{appointment.animal.customer.phone}</td>
                   <td>{appointment.doctor.phone}</td>
-
                   <td>
                     <span onClick={() => handleUpdateIcon(appointment)}>
                       <UpdateIcon />

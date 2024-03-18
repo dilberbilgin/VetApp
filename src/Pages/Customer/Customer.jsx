@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-// import UpdateIcon from "@mui/icons-material/Update";
 import UpdateIcon from "@mui/icons-material/Edit";
 import Alert from "@mui/material/Alert";
 
@@ -14,7 +13,6 @@ import {
 import "./Customer.css";
 
 //------------------------------Use State-----------------------------
-
 function Customer() {
   const [customers, setCustomers] = useState([]);
   const [search, setSearch] = useState("");
@@ -120,8 +118,6 @@ function Customer() {
   };
 
   //------------------------------Search Customer-----------------------------
-
-
   const handleSearchCustomerByName = () => {
     getCustomerByName(customerSearch).then((data) => {
       setCustomers(data);
@@ -132,14 +128,6 @@ function Customer() {
     setCustomerSearch("");
     setCustomers(searchResults);
   };
-
-  // const handleReset = () => {
-  //   setCustomerSearch("");
-  //   setCustomers(searchResults);
-  //   getCustomers().then((data) => {
-  //     setCustomers(data);
-  //   })
-  // };
 
   return (
     <div className="container">
@@ -236,9 +224,7 @@ function Customer() {
         />
         <button onClick={handleUpdateCustomerBtn}>Update</button>
         {alert === 2 ? (
-          <Alert severity="error">
-            Please select a customer!
-          </Alert>
+          <Alert severity="error">Please select a customer!</Alert>
         ) : null}
       </div>
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-// import UpdateIcon from "@mui/icons-material/Update";
 import UpdateIcon from "@mui/icons-material/Edit";
 import Alert from "@mui/material/Alert";
 
@@ -48,7 +47,6 @@ function AvailableDate() {
   }, [reload]);
 
   //------------------------------New Available Date-----------------------------
-
   const handleNewAvailableDate = (event) => {
     if (event.target.name === "doctor") {
       setNewAvailableDate({
@@ -86,7 +84,6 @@ function AvailableDate() {
   };
 
   //------------------------------Delete Available Date-----------------------------
-
   const handleDelete = (id) => {
     deleteAvailableDate(id).then(() => {
       setReload(true);
@@ -94,7 +91,6 @@ function AvailableDate() {
   };
 
   //------------------------------Update Available Date-----------------------------
-
   const handleUpdateAvailableDateInputs = (event) => {
     if (event.target.name === "doctor") {
       setUpdateAvailableDate({
@@ -119,7 +115,7 @@ function AvailableDate() {
           availableDate: "",
           doctor: {
             id: "",
-            name:"",
+            name: "",
           },
         });
       })
@@ -140,7 +136,6 @@ function AvailableDate() {
   };
 
   //------------------------------Search Availablel Date-----------------------------
-
   const handleInputSelect = (event) => {
     setSearch(event.target.value);
     if (event.target.name === "doctor") {
@@ -172,14 +167,6 @@ function AvailableDate() {
     setAvailableDates(searchResults);
   };
 
-  // const handleReset = () => {
-  //   setSearch("");
-  //   setAvailableDates(searchResults);
-  //   getAvailableDates().then((data) => {
-  //     setAvailableDates(data);
-  //   })
-  // };
-
   return (
     <>
       {/*--------------------------New AvailableDate Input Button------------------------ */}
@@ -210,26 +197,15 @@ function AvailableDate() {
 
           <button onClick={handleNewAvailableDateBtn}>Create</button>
           {alert === 1 ? (
-            <Alert severity="error">Please review the information and try again!</Alert>
+            <Alert severity="error">
+              Please review the information and try again!
+            </Alert>
           ) : null}
         </div>
 
         {/*--------------------------Update AvailableDate Input Button------------------------ */}
         <div className="availabledate-updateavailabledate">
           <h3 className="available-h3">Update Available Date</h3>
-
-          {/* <select
-            value={updateAvailableDate.doctor.id}
-            name="doctor"
-            onChange={handleUpdateAvailableDateInputs}
-          >
-            <option value="" disabled={true} selected={true} >
-              Selected doctor
-            </option>
-            {doctors.map((doctor) => {
-              return <option value={doctor.id}>{doctor.name}</option>;
-            })}
-          </select> */}
 
           <input
             type="text"
@@ -250,9 +226,7 @@ function AvailableDate() {
 
           <button onClick={handleUpdateAvailableDateBtn}>Update</button>
           {alert === 2 ? (
-            <Alert severity="error">
-              "Please select an available date!"
-            </Alert>
+            <Alert severity="error">"Please select an available date!"</Alert>
           ) : null}
         </div>
 
@@ -324,6 +298,54 @@ function AvailableDate() {
 }
 
 export default AvailableDate;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {
   /* 

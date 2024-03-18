@@ -20,14 +20,11 @@ h1, h2, h3, h4 {
   padding: 10px; 
 }
 
-
 .appointment-newappointment input,
 .appointment-updateappointment input, 
 .search-bar input{
- 
   padding: 8px;
   border: 1px solid #4d4c7d32;  
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  */
   border-radius: 5px;
   color: #363062;
 }
@@ -50,8 +47,7 @@ h1, h2, h3, h4 {
 
 .appointment-newappointment button,
 .appointment-updateappointment button,
-.search-bar button
- {
+.search-bar button{
   padding: 10px 20px;
   background-color: #F99417; 
   color: #fff; 
@@ -68,7 +64,6 @@ h1, h2, h3, h4 {
   border-radius: 5px;
   cursor: pointer;
   margin-bottom:20px
-
 }
 
 .reset:hover {
@@ -83,7 +78,6 @@ h1, h2, h3, h4 {
 }
 
 .search-bar-appointment{
-  
   background-color: #F5F5F5;
   padding-bottom: 10px;
   border-radius: 10px;
@@ -102,8 +96,6 @@ h1, h2, h3, h4 {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
-
-
 
 .list div span {
   cursor: pointer;
@@ -130,8 +122,7 @@ table th,
 table td {
   padding: 8px;
   text-align: left;
-  border-bottom: 1px solid #dddddd75;
-  
+  border-bottom: 1px solid #dddddd75; 
 }
 
 table th {

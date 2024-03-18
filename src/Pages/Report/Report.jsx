@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-// import UpdateIcon from "@mui/icons-material/Update";
 import UpdateIcon from "@mui/icons-material/Edit";
 import Alert from "@mui/material/Alert";
-
 
 import {
   getReports,
@@ -37,7 +35,7 @@ function Report() {
     appointment: "",
   });
 
-    //------------------------------Use Effect-----------------------------
+  //------------------------------Use Effect-----------------------------
   useEffect(() => {
     getReports().then((data) => {
       setReports(data);
@@ -46,7 +44,6 @@ function Report() {
     });
     getAppointments().then((data) => {
       setAppointments(data);
-      
     });
     setReload(false);
   }, [reload]);
@@ -71,28 +68,28 @@ function Report() {
   };
 
   const handleNewReportBtn = () => {
-    createReport(newReport).then(() => {
-      console.log(newReport);
-      setReload(true);
-      setNewReport({
-        title: "",
-        diagnosis: "",
-        price: "",
-        appointment: {
-          id:"",
-        },
+    createReport(newReport)
+      .then(() => {
+        console.log(newReport);
+        setReload(true);
+        setNewReport({
+          title: "",
+          diagnosis: "",
+          price: "",
+          appointment: {
+            id: "",
+          },
+        });
+      })
+      .catch((error) => {
+        setAlert(1);
+        setTimeout(() => {
+          setAlert(0); //ayni randevuya ait rapor varsa alert!
+        }, 3000);
       });
-    }).catch((error) => {
-      setAlert(1);
-      setTimeout(() => {
-        setAlert(0); //ayni randevuya ait rapor varsa alert!
-      }, 3000);
-    })
-   
   };
 
   //------------------------------Delete Report-----------------------------
-
   const handleDelete = (id) => {
     deleteReport(id).then(() => {
       setReload(true);
@@ -100,7 +97,6 @@ function Report() {
   };
 
   //------------------------------Update Appointment-----------------------------
-
   const handleUpdateReportInputs = (event) => {
     if (event.target.name === "appointment") {
       setUpdateReport({
@@ -118,29 +114,25 @@ function Report() {
   };
 
   const handleUpdateReportBtn = () => {
-    updateReportFunc(updateReport).then(() => {
-      setReload(true);
-      setUpdateReport({
-        title: "",
-        diagnosis: "",
-        price: "",
-        appointment: {
-          id:"",
-        },
-    });
-    
-    }).catch((error) => {
-      setAlert(2);
-      setTimeout(() => {
-        setAlert(0); 
-      }, 3000);
-    })
+    updateReportFunc(updateReport)
+      .then(() => {
+        setReload(true);
+        setUpdateReport({
+          title: "",
+          diagnosis: "",
+          price: "",
+          appointment: {
+            id: "",
+          },
+        });
+      })
+      .catch((error) => {
+        setAlert(2);
+        setTimeout(() => {
+          setAlert(0);
+        }, 3000);
+      });
   };
-
-  // const handleUpdateIcon = (vaccine) => {
-  //   console.log(vaccine);
-  //   setUpdateVaccine(vaccine);
-  // };
 
   const handleUpdateIcon = (report) => {
     setUpdateReport({
@@ -152,28 +144,25 @@ function Report() {
     });
   };
 
-      //------------------------------Search Report-----------------------------
-      const handleSearch = () => {
-        const filteredReport = searchResults.filter((report) =>
-        report.title.toLowerCase().includes(search.toLowerCase())
-        );
-        setReports(filteredReport);
-        setSearch("");
-      };
+  //------------------------------Search Report-----------------------------
+  const handleSearch = () => {
+    const filteredReport = searchResults.filter((report) =>
+      report.title.toLowerCase().includes(search.toLowerCase())
+    );
+    setReports(filteredReport);
+    setSearch("");
+  };
 
-      const handleReset = () => {
-        setSearch("");
-        setReports(searchResults);
-      };
-  
- 
+  const handleReset = () => {
+    setSearch("");
+    setReports(searchResults);
+  };
 
   return (
     <div className="container">
-    {/*--------------------------New Report Input Button------------------------ */}
-    
+      {/*--------------------------New Report Input Button------------------------ */}
       <div className="report-newreport">
-      <h1>Report Management</h1>
+        <h1>Report Management</h1>
         <h3>Add Report</h3>
         <input
           type="text"
@@ -197,7 +186,11 @@ function Report() {
           onChange={handleNewReport}
         />
 
-        <select value={newReport.appointment.id} name="appointment" onChange={handleNewReport}>
+        <select
+          value={newReport.appointment.id}
+          name="appointment"
+          onChange={handleNewReport}
+        >
           <option value="" disabled={true} selected={true}>
             Select appointment
           </option>
@@ -215,10 +208,10 @@ function Report() {
           <Alert severity="error">
             Please review the information and try again!
           </Alert>
-        ):null}
+        ) : null}
       </div>
 
-          {/*--------------------------Update Appointment Input Button------------------------ */}
+      {/*--------------------------Update Appointment Input Button------------------------ */}
       <div className="report-updatereport">
         <h3>Update Report</h3>
 
@@ -251,25 +244,25 @@ function Report() {
             Select appointment
           </option>
           {appointments.map((appointment) => {
-            return <option value={appointment.id}>{appointment.appointmentDate}</option>;
+            return (
+              <option value={appointment.id}>
+                {appointment.appointmentDate}
+              </option>
+            );
           })}
         </select>
 
         <button onClick={handleUpdateReportBtn}>Update</button>
         {alert === 2 ? (
-          <Alert severity="error">
-            Please select a report!
-          </Alert>
-        ):null}
-
+          <Alert severity="error">Please select a report!</Alert>
+        ) : null}
       </div>
 
       {/* ---------------------------Search Report Input Button------------------------ */}
-
       <div className="search-bar">
-      <h3>Search Report</h3>
+        <h3>Search Report</h3>
 
-      <input
+        <input
           type="text"
           placeholder="Enter name... "
           value={search}
@@ -277,13 +270,12 @@ function Report() {
         />
 
         <button onClick={handleSearch}>Search</button>
-        <button className="reset" onClick={handleReset}>Show All</button>
+        <button className="reset" onClick={handleReset}>
+          Show All
+        </button>
       </div>
 
-   
-
-    
-          {/* ---------------------------List Report------------------------ */}
+      {/* ---------------------------List Report------------------------ */}
       <div className="list">
         <h3>Report List</h3>
 
@@ -291,15 +283,15 @@ function Report() {
           <table className="table">
             <thead>
               <tr>
-              <th>Report Title</th>
-          <th>Animal Name</th>
-          <th>Diagnosis</th>
-          <th>Doctor Name</th>
-          <th>Customer</th>
-          <th>Vaccine List</th>
-          <th>Price</th>
-          <th>Appointment Date</th>
-          <th>Actions</th>
+                <th>Report Title</th>
+                <th>Animal Name</th>
+                <th>Diagnosis</th>
+                <th>Doctor Name</th>
+                <th>Customer</th>
+                <th>Vaccine List</th>
+                <th>Price</th>
+                <th>Appointment Date</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -310,15 +302,14 @@ function Report() {
                   <td>{report.diagnosis}</td>
                   <td>{report.appointment.doctor.name}</td>
                   <td>{report.appointment.animal.customer.name}</td>
-                   <td >{report.vaccineList?.map((vaccineLists) => (
-<span>{vaccineLists.name} , </span>       
-             
-            ))}</td>
-                   
-                  
+                  <td>
+                    {report.vaccineList?.map((vaccineLists) => (
+                      <span>{vaccineLists.name} , </span>
+                    ))}
+                  </td>
                   <td>{report.price}</td>
                   <td>{report.appointment.appointmentDate}</td>
-              
+
                   <td>
                     <span onClick={() => handleUpdateIcon(report)}>
                       <UpdateIcon />
@@ -332,13 +323,8 @@ function Report() {
             </tbody>
           </table>
         </div>
-
-        </div>
+      </div>
     </div>
   );
 }
-
 export default Report;
-
-
-        

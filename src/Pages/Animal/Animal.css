@@ -12,14 +12,10 @@ h1, h2, h3, h4 {
   margin-bottom: 5px;
 }
 
-
-
-
 .animal-newanimal,
 .animal-updateanimal, 
 .search-bar,
 .list {
-  
   background-color: #F5F5F5;
   border-radius: 10px;
   padding: 20px;
@@ -32,9 +28,7 @@ h1, h2, h3, h4 {
   border-radius: 10px;
   padding: 20px;
   margin-top: 15px;
-
   align-items: center;
-
 }
 
 .show-all {
@@ -59,9 +53,6 @@ h1, h2, h3, h4 {
   border: 1px solid #4d4c7d32;
   border-radius: 5px;
   color: #363062;
-
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  */
-
 }
 
 .animal-newanimal select,
@@ -91,10 +82,6 @@ h1, h2, h3, h4 {
   margin-right: 10px;
 }
 
-
-
-
-
 .animal-newanimal button:hover,
 .animal-updateanimal button:hover,
 .search-bar button:hover {
@@ -116,9 +103,6 @@ h1, h2, h3, h4 {
   background-color: #363062;
 }
 
-
-
-
 .search-bar-animal{
   display: flex;
   justify-content: center;
@@ -138,7 +122,6 @@ h1, h2, h3, h4 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
-
 .list div span {
   cursor: pointer;
 }
@@ -146,8 +129,6 @@ h1, h2, h3, h4 {
 .list div span:hover {
   color: #76ABAE; 
 }
-
-
 
 .table-container {
   max-width: 100%;
@@ -164,8 +145,7 @@ table th,
 table td {
   padding: 8px;
   text-align: left;
-  border-bottom: 1px solid #dddddd75;
-  
+  border-bottom: 1px solid #dddddd75; 
 }
 
 table th {

@@ -1,7 +1,5 @@
-
 import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-// import UpdateIcon from "@mui/icons-material/Update";
 import UpdateIcon from "@mui/icons-material/Edit";
 import Alert from "@mui/material/Alert";
 
@@ -49,28 +47,25 @@ function Vaccine() {
     report: "",
   });
 
-
-    //------------------------------Use Effect-----------------------------
-    useEffect(() => {
-      getVaccines().then((data) => {
-        setVaccines(data);
-        setSearchResults(data);
-        console.log(data);
-      });
-      getAnimals().then((data) => {
-        setAnimals(data);
-        console.log(data);
-      });
-      getReports().then((data) => {
-        setReports(data);
-        console.log(data);
-      });
-      setReload(false);
-    }, [reload]);
-  
+  //------------------------------Use Effect-----------------------------
+  useEffect(() => {
+    getVaccines().then((data) => {
+      setVaccines(data);
+      setSearchResults(data);
+      console.log(data);
+    });
+    getAnimals().then((data) => {
+      setAnimals(data);
+      console.log(data);
+    });
+    getReports().then((data) => {
+      setReports(data);
+      console.log(data);
+    });
+    setReload(false);
+  }, [reload]);
 
   //------------------------------New Vaccine-----------------------------
-
   const handleNewVaccine = (event) => {
     if (event.target.name === "animal") {
       setNewVaccine({
@@ -79,14 +74,14 @@ function Vaccine() {
           id: event.target.value,
         },
       });
-     } else if (event.target.name === "report") {
+    } else if (event.target.name === "report") {
       setNewVaccine({
-          ...newVaccine,
-          report: {
-            id: event.target.value,
-          },
-        });
-      } else {
+        ...newVaccine,
+        report: {
+          id: event.target.value,
+        },
+      });
+    } else {
       setNewVaccine({
         ...newVaccine,
         [event.target.name]: event.target.value,
@@ -96,32 +91,32 @@ function Vaccine() {
   };
 
   const handleNewVaccineBtn = () => {
-    createVaccine(newVaccine).then(() => {
-      console.log(newVaccine);
-      setReload(true);
-      setNewVaccine({
-        name: "",
-        code: "",
-        protectionStartDate: "",
-        protectionFinishDate: "",
-        animal:{
-          id: "",
-        } ,
-        report: {
-          id: ""
-        },
+    createVaccine(newVaccine)
+      .then(() => {
+        console.log(newVaccine);
+        setReload(true);
+        setNewVaccine({
+          name: "",
+          code: "",
+          protectionStartDate: "",
+          protectionFinishDate: "",
+          animal: {
+            id: "",
+          },
+          report: {
+            id: "",
+          },
+        });
+      })
+      .catch((error) => {
+        setAlert(1);
+        setTimeout(() => {
+          setAlert(0); // asinin koruyuculugu bitmemis ise alert!
+        }, 3000);
       });
-    }).catch((error) => {
-      setAlert(1);
-      setTimeout(() => {
-        setAlert(0) // asinin koruyuculugu bitmemis ise alert!
-      }, 3000);
-    });
-    
   };
 
   //------------------------------Delete Vaccine-----------------------------
-
   const handleDelete = (id) => {
     deleteVaccine(id).then(() => {
       setReload(true);
@@ -129,7 +124,6 @@ function Vaccine() {
   };
 
   //------------------------------Update Vaccine-----------------------------
-
   const handleUpdateVaccineInputs = (event) => {
     if (event.target.name === "animal") {
       setUpdateVaccine({
@@ -154,33 +148,29 @@ function Vaccine() {
   };
 
   const handleUpdateVaccineBtn = () => {
-    updateVaccineFunc(updateVaccine).then(() => {
-      setReload(true);
-      setUpdateVaccine({
-        name: "",
-        code: "",
-        protectionStartDate: "",
-        protectionFinishDate: "",
-        animal:{
-          id: "",
-        } ,
-        report: {
-          id: ""
-        },
-    });
-    
-    }).catch((error) => {
-      setAlert(2);
-      setTimeout(() => {
-        setAlert(0); // ayni isim ve code ise guncellemez, alert!
-      }, 3000);
-    });
+    updateVaccineFunc(updateVaccine)
+      .then(() => {
+        setReload(true);
+        setUpdateVaccine({
+          name: "",
+          code: "",
+          protectionStartDate: "",
+          protectionFinishDate: "",
+          animal: {
+            id: "",
+          },
+          report: {
+            id: "",
+          },
+        });
+      })
+      .catch((error) => {
+        setAlert(2);
+        setTimeout(() => {
+          setAlert(0);
+        }, 3000);
+      });
   };
-
-  // const handleUpdateIcon = (vaccine) => {
-  //   console.log(vaccine);
-  //   setUpdateVaccine(vaccine);
-  // };
 
   const handleUpdateIcon = (vaccine) => {
     setUpdateVaccine({
@@ -194,55 +184,36 @@ function Vaccine() {
     });
   };
 
-    //------------------------------Search Vaccine-----------------------------
-    // const handleSearchByVaccineName = () => {
-    //   const filteredVaccine = searchResults.filter((vaccine) =>
-    //   vaccine.name.toLowerCase().includes(nameSearch.toLowerCase())
-    //   );
-    //   setVaccines(filteredVaccine);
-      
-    // };
+  //------------------------------Search Vaccine-----------------------------
+  const handleSearchVaccineByName = () => {
+    getVaccineByName(nameSearch).then((data) => {
+      setVaccines(data);
+    });
+  };
 
-    const handleSearchVaccineByName = () => {
-      getVaccineByName(nameSearch).then((data) => {
-        setVaccines(data);
-      });  
-    };
+  const handleSearchVaccineByAnimalName = () => {
+    getVaccineByAnimalName(animalSearch).then((data) => {
+      setVaccines(data);
+    });
+  };
 
-    // const handleSearchByAnimal = () => {
-    //   const filteredVaccine = searchResults.filter((vaccine) =>
-    //   vaccine.animal.name.toLowerCase().includes(animalSearch.toLowerCase())
-    //   );
-    //   setVaccines(filteredVaccine);
-    // };
+  const handleSearchByDates = () => {
+    getVaccinesByDate(startDate, endDate).then((data) => {
+      setVaccines(data);
+    });
+  };
 
-    const handleSearchVaccineByAnimalName = () => {
-      getVaccineByAnimalName(animalSearch).then((data) => {
-        setVaccines(data);
-      });
-    }
+  const handleReset = () => {
+    setStartDate("");
+    setEndDate("");
+    setNameSearch("");
+    setAnimalSearch("");
+    setVaccines(searchResults);
+  };
 
-    const handleSearchByDates = () => {
-      getVaccinesByDate(startDate, endDate).then((data) => {
-        setVaccines(data);
-      });
-    };
-
-    const handleReset = () => {
-      setStartDate("");
-      setEndDate("");
-      setNameSearch("");
-      setAnimalSearch("");
-      setVaccines(searchResults);
-    };
-
-    
-
-
-  
   return (
     <>
-        {/*--------------------------New Vaccine Input Button------------------------ */}
+      {/*--------------------------New Vaccine Input Button------------------------ */}
       <div className="vaccine-newvaccine">
         <h1>Vaccine Management</h1>
         <h3>Add Vaccine</h3>
@@ -253,14 +224,14 @@ function Vaccine() {
           value={newVaccine.name}
           onChange={handleNewVaccine}
         />
-<input
+        <input
           type="text"
           placeholder="Code"
           name="code"
           value={newVaccine.code}
           onChange={handleNewVaccine}
         />
-         <input
+        <input
           type="date"
           placeholder="Protection Start Date"
           name="protectionStartDate"
@@ -274,8 +245,12 @@ function Vaccine() {
           value={newVaccine.protectionFinishDate}
           onChange={handleNewVaccine}
         />
-        
-        <select value={newVaccine.animal.id} name="animal" onChange={handleNewVaccine}>
+
+        <select
+          value={newVaccine.animal.id}
+          name="animal"
+          onChange={handleNewVaccine}
+        >
           <option value="" disabled={true} selected={true}>
             Select Animal
           </option>
@@ -284,7 +259,11 @@ function Vaccine() {
           })}
         </select>
 
-        <select value={newVaccine.report.id} name="report" onChange={handleNewVaccine}>
+        <select
+          value={newVaccine.report.id}
+          name="report"
+          onChange={handleNewVaccine}
+        >
           <option value="" disabled={true} selected={true}>
             Select Report
           </option>
@@ -298,46 +277,50 @@ function Vaccine() {
           <Alert severity="error">
             Please review the information and try again!
           </Alert>
-        ):null}
+        ) : null}
       </div>
 
-        {/*--------------------------Update Vaccine Input Button------------------------ */}
+      {/*--------------------------Update Vaccine Input Button------------------------ */}
       <div className="vaccine-updatevaccine">
         <h3>Update Vaccine</h3>
 
         <input
-         type="text"
-         placeholder="Name"
-         name="name"
-         value={updateVaccine.name}
-         onChange={handleUpdateVaccineInputs}
+          type="text"
+          placeholder="Name"
+          name="name"
+          value={updateVaccine.name}
+          onChange={handleUpdateVaccineInputs}
         />
 
-<input
-         type="text"
-         placeholder="Code"
-         name="code"
-         value={updateVaccine.code}
-         onChange={handleUpdateVaccineInputs}
-        />
-       
-       <input
-         type="date"
-         placeholder="Protection Start Date"
-         name="protectionStartDate"
-         value={updateVaccine.protectionStartDate}
-         onChange={handleUpdateVaccineInputs}
+        <input
+          type="text"
+          placeholder="Code"
+          name="code"
+          value={updateVaccine.code}
+          onChange={handleUpdateVaccineInputs}
         />
 
-<input
-         type="date"
-         placeholder="Protection Finish Date"
-         name="protectionFinishDate"
-         value={updateVaccine.protectionFinishDate}
-         onChange={handleUpdateVaccineInputs}
+        <input
+          type="date"
+          placeholder="Protection Start Date"
+          name="protectionStartDate"
+          value={updateVaccine.protectionStartDate}
+          onChange={handleUpdateVaccineInputs}
         />
-        
-        <select value={updateVaccine.animal.id} name="animal" onChange={handleUpdateVaccineInputs}>
+
+        <input
+          type="date"
+          placeholder="Protection Finish Date"
+          name="protectionFinishDate"
+          value={updateVaccine.protectionFinishDate}
+          onChange={handleUpdateVaccineInputs}
+        />
+
+        <select
+          value={updateVaccine.animal.id}
+          name="animal"
+          onChange={handleUpdateVaccineInputs}
+        >
           <option value="" disabled={true} selected={true}>
             Select Animal
           </option>
@@ -346,7 +329,11 @@ function Vaccine() {
           })}
         </select>
 
-        <select value={updateVaccine?.report?.id ? updateVaccine.report.id : ""} name="report" onChange={handleUpdateVaccineInputs}>
+        <select
+          value={updateVaccine?.report?.id ? updateVaccine.report.id : ""}
+          name="report"
+          onChange={handleUpdateVaccineInputs}
+        >
           <option value="" disabled={true} selected={true}>
             Select Report
           </option>
@@ -357,67 +344,57 @@ function Vaccine() {
 
         <button onClick={handleUpdateVaccineBtn}>Update</button>
         {alert === 2 ? (
-          <Alert severity="error">
-            Please select a report!
-          </Alert>
-        ):null}
+          <Alert severity="error">Please select a report!</Alert>
+        ) : null}
       </div>
 
-       {/* ---------------------------Search Vaccine Input Button------------------------ */}
+      {/* ---------------------------Search Vaccine Input Button------------------------ */}
+      <div className="search-bar-vaccine">
+        <div className="search-bar">
+          <h3>Search Vaccine by Name</h3>
 
-       <div className="search-bar-vaccine">
-       <div className="search-bar">
-      <h3>Search Vaccine by Name</h3>
+          <input
+            type="text"
+            placeholder="Enter vaccine name... "
+            value={nameSearch}
+            onChange={(e) => setNameSearch(e.target.value)}
+          />
+          <button onClick={handleSearchVaccineByName}>Search</button>
+        </div>
 
-      <input
-          type="text"
-          placeholder="Enter vaccine name... "
-          value={nameSearch}
-          onChange={(e) => setNameSearch(e.target.value)}
-        />
-        <button onClick={handleSearchVaccineByName}>Search</button>
+        <div className="search-bar">
+          <h3>Search Vaccine by Animal</h3>
+          <input
+            type="text"
+            placeholder="Enter animal name... "
+            value={animalSearch}
+            onChange={(e) => setAnimalSearch(e.target.value)}
+          />
+          <button onClick={handleSearchVaccineByAnimalName}>Search</button>
+        </div>
+
+        <div className="search-bar">
+          <h3>Search Vaccine by Date Range</h3>
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+          <button onClick={handleSearchByDates}>Search</button>
+          <button className="reset-button" onClick={handleReset}>
+            Show All
+          </button>
+        </div>
       </div>
 
-
-      <div className="search-bar">
-      <h3>Search Vaccine by Animal</h3>
-      <input
-          type="text"
-          placeholder="Enter animal name... "
-          value={animalSearch}
-          onChange={(e) => setAnimalSearch(e.target.value)}
-        />
-        <button onClick={handleSearchVaccineByAnimalName}>Search</button>
-      </div>
-
-
-      <div className="search-bar">
-        <h3>Search Vaccine by Date Range</h3>
-        <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-        <input
-          type="date" 
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-        <button onClick={handleSearchByDates}>Search</button>
-        <button className="reset-button" onClick={handleReset}>Show All</button>
-       
-      </div>
-
-       </div>
-       
-       
-      
-
-     
-{/* ---------------------------List Vaccine------------------------ */}
+      {/* ---------------------------List Vaccine------------------------ */}
       <div className="list">
         <h3>Asi Listesi</h3>
-
         <div className="table-container">
           <table className="table">
             <thead>
@@ -454,8 +431,7 @@ function Vaccine() {
             </tbody>
           </table>
         </div>
-
-        </div>
+      </div>
     </>
   );
 }
@@ -464,7 +440,40 @@ export default Vaccine;
 
 
 
-        {/* {vaccines.map((vaccine) => (
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  /* {vaccines.map((vaccine) => (
           <div key={vaccine.id}>
             <h3>
             {vaccine.id} - {vaccine.animal.name} / {vaccine.code}
@@ -478,9 +487,5 @@ export default Vaccine;
             </h3>{" "}
             {vaccine.protectionStartDate} /{vaccine.protectionFinishDate}
           </div>
-        ))} */}
-
-
-
-
-
+        ))} */
+}

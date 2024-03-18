@@ -89,9 +89,8 @@ function Animal() {
           colour: "",
           dateOfBirth: "",
           customer: {
-            id:"",
+            id: "",
           },
-          
         });
       })
       .catch((error) => {
@@ -138,17 +137,17 @@ function Animal() {
           breed: "",
           gender: "",
           colour: "",
-          dateOfBirth: "", 
+          dateOfBirth: "",
           customer: {
-            id:"",
-          }, 
+            id: "",
+          },
           id: "",
         });
       })
       .catch((error) => {
         setAlert(2);
         setTimeout(() => {
-          setAlert(0); 
+          setAlert(0);
         }, 3000);
       });
   };
@@ -170,22 +169,14 @@ function Animal() {
   const handleSearchAnimalByName = () => {
     getAnimalByName(search).then((data) => {
       setAnimals(data);
-    });  
+    });
   };
-
-  // const handleSearchAnimalByCustomerName = () => {
-  //   const filteredAnimal = searchResults.filter((animal) =>
-  //     animal.customer.name.toLowerCase().includes(search.toLowerCase())
-  //   );
-  //   setAnimals(filteredAnimal);
-  // };
-
   const handleSearchAnimalByCustomerName = () => {
     getAnimalByCustomerName(customerSearch).then((data) => {
       setAnimals(data);
-      console.log(data)
+      console.log(data);
     });
-  }
+  };
   const handleReset = () => {
     setSearch("");
     setCustomerSearch("");
@@ -241,7 +232,11 @@ function Animal() {
           onChange={handleNewAnimal}
         />
 
-        <select value={newAnimal.customer.id} name="customer" onChange={handleNewAnimal}>
+        <select
+          value={newAnimal.customer.id}
+          name="customer"
+          onChange={handleNewAnimal}
+        >
           <option value="" disabled={true} selected={true}>
             Select customer
           </option>
@@ -304,7 +299,11 @@ function Animal() {
           value={updateAnimal.dateOfBirth}
           onChange={handleUpdateAnimalInputs}
         />
-        <select value={updateAnimal.customer.id} name="customer" onChange={handleUpdateAnimalInputs}>
+        <select
+          value={updateAnimal.customer.id}
+          name="customer"
+          onChange={handleUpdateAnimalInputs}
+        >
           <option value="" disabled={true} selected={true}>
             Select Customer
           </option>
@@ -315,9 +314,7 @@ function Animal() {
 
         <button onClick={handleUpdateAnimalBtn}>Update</button>
         {alert === 2 ? (
-          <Alert severity="error">
-            Please select an animal!
-          </Alert>
+          <Alert severity="error">Please select an animal!</Alert>
         ) : null}
       </div>
 
@@ -345,16 +342,12 @@ function Animal() {
             onChange={(e) => setCustomerSearch(e.target.value)}
           />
           <button onClick={handleSearchAnimalByCustomerName}>Search</button>
-          
-          
         </div>
         <div className="search-bar-reset">
           <button className="show-all" onClick={handleReset}>
             Show All
           </button>
-          </div>
-
-        
+        </div>
       </div>
 
       {/* ------------------------------List Animal ----------------------------- */}
@@ -405,4 +398,3 @@ function Animal() {
 }
 
 export default Animal;
-

@@ -111,7 +111,7 @@ function Vaccine() {
       .catch((error) => {
         setAlert(1);
         setTimeout(() => {
-          setAlert(0); // asinin koruyuculugu bitmemis ise alert!
+          setAlert(0); 
         }, 3000);
       });
   };

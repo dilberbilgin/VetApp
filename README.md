@@ -23,6 +23,7 @@ Spring Boot ile geliştirilmiş bir REST API projesidir. API, hayvan sahipleri, 
 **Frontend** kısmı, 
 React.js kullanılarak geliştirilmiştir. Kullanıcı arayüzü, veteriner yönetim sisteminin temel işlevlerini sunar. Sayfalar arası gezinme için React Router kullanılmıştır. Frontend projesi, aşağıdaki teknolojileri içermektedir:
 
+- Javascript
 - React
 - Vite
 - React Router

@@ -184,21 +184,18 @@ function Vaccine() {
   const handleSearchVaccineByName = () => {
     getVaccineByName(nameSearch).then((data) => {
       setVaccines(data);
-      setSearchResults(data); 
     });
   };
 
   const handleSearchVaccineByAnimalName = () => {
     getVaccineByAnimalName(animalSearch).then((data) => {
       setVaccines(data);
-      setSearchResults(data); 
     });
   };
 
   const handleSearchByDates = () => {
     getVaccinesByDate(startDate, endDate).then((data) => {
       setVaccines(data);
-      setSearchResults(data); 
     });
   };
 

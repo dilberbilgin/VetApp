@@ -52,15 +52,12 @@ function Vaccine() {
     getVaccines().then((data) => {
       setVaccines(data);
       setSearchResults(data);
-      console.log(data);
     });
     getAnimals().then((data) => {
       setAnimals(data);
-      console.log(data);
     });
     getReports().then((data) => {
       setReports(data);
-      console.log(data);
     });
     setReload(false);
   }, [reload]);
@@ -87,7 +84,6 @@ function Vaccine() {
         [event.target.name]: event.target.value,
       });
     }
-    console.log(newVaccine);
   };
 
   const handleNewVaccineBtn = () => {
@@ -188,18 +184,21 @@ function Vaccine() {
   const handleSearchVaccineByName = () => {
     getVaccineByName(nameSearch).then((data) => {
       setVaccines(data);
+      setSearchResults(data); 
     });
   };
 
   const handleSearchVaccineByAnimalName = () => {
     getVaccineByAnimalName(animalSearch).then((data) => {
       setVaccines(data);
+      setSearchResults(data); 
     });
   };
 
   const handleSearchByDates = () => {
     getVaccinesByDate(startDate, endDate).then((data) => {
       setVaccines(data);
+      setSearchResults(data); 
     });
   };
 
